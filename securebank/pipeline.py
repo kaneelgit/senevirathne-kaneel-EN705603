@@ -71,7 +71,9 @@ class Pipeline:
         new_data_dict['day_of_trans'] = self.column_mapper['day_of_trans'][trans_date_trans_time.day_name()]
         new_data_dict['hour_of_trans'] = trans_date_trans_time.hour
         new_data_dict['month_of_trans'] = self.column_mapper['month_of_trans'][trans_date_trans_time.month_name()]
-        new_data_dict['age'] = (datetime.now() - cr_patient['dob']).astype('<m8[Y]')
+        # new_data_dict['age'] = (datetime.now() - cr_patient['dob']).astype('<m8[Y]')
+        new_data_dict['age'] = (pd.Timestamp.now() - cr_patient['dob']).astype('timedelta64[Y]')
+        
         new_data_dict['state'] = self.column_mapper['state'][cr_patient['state'].iloc[0]]
 
         if input_dict['merchant'] not in self.column_mapper['merchant']:
