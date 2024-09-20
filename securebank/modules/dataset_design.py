@@ -14,17 +14,28 @@ class Dataset_designer:
             raise ValueError("Only parquet files are allowed.")
             
     
-    def sample(self, raw_dataset: pandas.DataFrame, test_split: float = 0.2, random_state: int = 42):
+    def sample(self, raw_dataset: pandas.DataFrame, test_split: float = 0.1, random_state: int = 42):
         """
         This method inputs a pandas dataframe and the test split ratio and split it into training and testing sets. 
         It outputs the test and training sets. 
         """
-        # Ensure test_split is between 0 and 1
-        if not (0 < test_split < 1):
-            raise ValueError("test_split must be a float between 0 and 1")
+        # # Ensure test_split is between 0 and 1
+        # if not (0 < test_split < 1):
+        #     raise ValueError("test_split must be a float between 0 and 1")
 
-        # Perform train-test split
-        self.raw_train, self.raw_test = train_test_split(raw_dataset, test_size=test_split, random_state=random_state)
+        # # Perform train-test split
+        # self.raw_train, self.raw_test = train_test_split(raw_dataset, test_size=test_split, random_state=random_state)
+
+        # Extract unique cc_num values
+        unique_cc_nums = raw_dataset['cc_num'].unique()
+
+        # import pdb; pdb.set_trace()
+        # Perform train-test split on unique cc_num values
+        train_cc_nums, test_cc_nums = train_test_split(unique_cc_nums, test_size=test_split, random_state=random_state)
+
+        # Create train and test sets based on the split cc_num values
+        self.raw_train = raw_dataset[raw_dataset['cc_num'].isin(train_cc_nums)]
+        self.raw_test = raw_dataset[raw_dataset['cc_num'].isin(test_cc_nums)]
 
         return [self.raw_train, self.raw_test]
     
@@ -59,3 +70,9 @@ class Dataset_designer:
         data_list[1].to_parquet(test_output_filename, index=False)
         print(f"Test data saved to {test_output_filename}")
 
+# dd = Dataset_designer()
+# raw_data = dd.extract('../data_sources/raw_data_v1.0.parquet')
+# data = dd.sample(raw_data, random_state = 50)
+
+
+# import pdb; pdb.set_trace()

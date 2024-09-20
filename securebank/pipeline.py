@@ -4,6 +4,7 @@ import pandas as pd
 import ast
 from datetime import datetime
 import joblib
+from modules import raw_data_handler
 
 class Pipeline:
 
@@ -48,19 +49,25 @@ class Pipeline:
         history_df = pd.read_csv("storage/models/model_history.csv")
         return history_df
     
-    def card_holder_info(self, input_dict, data_source = 'data_sources/customer_release.csv'):
+    def card_holder_info(self, input_dict, customer_information = 'data_sources/customer_release.csv', transaction_information = "data_sources/transactions_release.parquet", fraud_information = "data_sources/fraud_release.json"):
         
         #get credit card number and get information for the client
         cc_num = int(input_dict['cc_num'])
+
+        #use raw data handler to get customer information and transaction information to get customers last transaction time
+        rdh = raw_data_handler.Raw_Data_Handler()
+        cr, ti, _ = rdh.extract(customer_information, transaction_information, fraud_information)
         
+        #sort by time
+        ti = ti.sort_values(by='trans_date_trans_time')
+        #get customer last transaction time
+        ti_patient = ti[ti['cc_num'] == cc_num]
+        lt = ti_patient['trans_date_trans_time'].iloc[-1]
+
         #get patient info
-        cr = pd.read_csv(data_source)
+        # cr = pd.read_csv(data_source)
         cr_patient = cr[cr['cc_num'] == cc_num]
         cr_patient['dob'] = pd.to_datetime(cr_patient['dob'])
-
-        #pandas datafram
-        # int_cols = ['day_of_trans', 'hour_of_trans', 'month_of_trans', 'age', 'state', 'merchant', 'category', 'sex', 'city', 'zip', 'job', 'amt', 'lat', 'long', 'city_pop', 'merch_lat', 'merch_long']
-        # inf_df = pd.DataFrame(columns = int_cols)
 
         #get data from cc num
         trans_date_trans_time = datetime.strptime(input_dict['trans_date_trans_time'], '%Y-%m-%d %H:%M:%S')
@@ -68,6 +75,9 @@ class Pipeline:
 
         #store data in a dictionary and convert data to the training set formats
         new_data_dict = {}
+
+        #transaction time difference
+        new_data_dict['trans_diff'] = (trans_date_trans_time - pd.to_datetime(lt)).total_seconds()     
         new_data_dict['day_of_trans'] = self.column_mapper['day_of_trans'][trans_date_trans_time.day_name()]
         new_data_dict['hour_of_trans'] = trans_date_trans_time.hour
         new_data_dict['month_of_trans'] = self.column_mapper['month_of_trans'][trans_date_trans_time.month_name()]
