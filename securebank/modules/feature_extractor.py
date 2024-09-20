@@ -31,6 +31,12 @@ class Feature_Extractor:
 
     def transform(self, training_dataset: pandas.DataFrame, testing_dataset: pandas.DataFrame):
 
+        #get unix diff
+        # training_dataset['trans_diff'] = training_dataset['trans_date_trans_time'].diff().dt.total_seconds()
+        # testing_dataset['trans_diff'] = testing_dataset['trans_date_trans_time'].diff().dt.total_seconds()
+        training_dataset['trans_diff'] = training_dataset.groupby('cc_num')['trans_date_trans_time'].diff().dt.total_seconds()
+        testing_dataset['trans_diff'] = testing_dataset.groupby('cc_num')['trans_date_trans_time'].diff().dt.total_seconds()
+        
         #convert time to hour, day and year
         training_dataset = self.extract_hour_day_month(training_dataset)
         testing_dataset = self.extract_hour_day_month(testing_dataset)
@@ -47,7 +53,6 @@ class Feature_Extractor:
         training_dataset, testing_dataset = self.combine_categories(training_dataset, testing_dataset, 'merchant', 2000)
 
         #convert categorical columns to ints
-        # import pdb; pdb.set_trace()
         column_mappings = {}
         training_dataset, testing_dataset, column_mappings['state'] = self.convert_categorical_to_integers(training_dataset, testing_dataset, 'state')
         training_dataset, testing_dataset, column_mappings['category'] = self.convert_categorical_to_integers(training_dataset, testing_dataset, 'category')
@@ -58,26 +63,17 @@ class Feature_Extractor:
         training_dataset, testing_dataset, column_mappings['job'] = self.convert_categorical_to_integers(training_dataset, testing_dataset, 'job')
         training_dataset, testing_dataset, column_mappings['day_of_trans'] = self.convert_categorical_to_integers(training_dataset, testing_dataset, 'day_of_trans')
         training_dataset, testing_dataset, column_mappings['month_of_trans'] = self.convert_categorical_to_integers(training_dataset, testing_dataset, 'month_of_trans')
-                
-        #scale all the continous variables
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'amt')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'lat')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'long')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'city_pop')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'merch_lat')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'merch_long')
-        # training_dataset, testing_dataset = self.scale_column(training_dataset, testing_dataset, 'age')
-
+        
         #print highly correlated columns
         self.print_high_correlation_columns(training_dataset[['amt', 'lat', 'long', 'city_pop', 'merch_lat', 'merch_long']])
 
         #interested columns
-        int_cols = ['day_of_trans', 'hour_of_trans', 'month_of_trans', 'age', 'state', 'merchant', 'category', 'sex', 'city', 'zip', 'job', 'amt', 'lat', 'long', 'city_pop', 'merch_lat', 'merch_long']
+        int_cols = ['trans_diff', 'day_of_trans', 'hour_of_trans', 'month_of_trans', 'age', 'state', 'merchant', 'category', 'sex', 'city', 'zip', 'job', 'amt', 'lat', 'long', 'city_pop', 'merch_lat', 'merch_long']
         target = 'is_fraud'
-        # import pdb; pdb.set_trace()
-        #drop na values
-        training_dataset = training_dataset.dropna()
-        testing_dataset = testing_dataset.dropna()
+        
+        #drop na values        
+        training_dataset = training_dataset.dropna(subset = int_cols + [target])
+        testing_dataset = testing_dataset.dropna(subset = int_cols + [target])
 
         #seperate training/testing featrues and target
         self.X_train = training_dataset[int_cols]
@@ -137,6 +133,10 @@ class Feature_Extractor:
         """
         Helper function to categorize data.
         """
+        #  # Replace NaN values with 'Other' first
+        # train_dataframe[column].fillna('Other', inplace=True)
+        # test_dataframe[column].fillna('Other', inplace=True)
+        
         mask = train_dataframe[column].value_counts() < threshold
         other_cats = mask[mask == True].index
 
@@ -150,15 +150,22 @@ class Feature_Extractor:
         """
         Convert a pandas categorical column to integers and return the mappings.
         """
+
         new_column = f"{column}"
 
         #create new column
         training_dataframe[new_column], uniques = pandas.factorize(training_dataframe[column], sort = True)
         # mappings_dict = {i: v for i, v in enumerate(uniques)}
         mappings_dict = {v:i for i, v in enumerate(uniques)}
+
+        # Add 'Other' to the mappings if it's not already there
+        if 'Other' not in mappings_dict:
+            other_value = len(mappings_dict)  # Assign the next available integer for 'Other'
+            mappings_dict['Other'] = other_value
         
         #change the mapping for testing set
         testing_dataframe[new_column] = testing_dataframe[column].map(mappings_dict)
+        testing_dataframe[column].fillna(mappings_dict['Other'], inplace = True) #if not available make it other category
 
         return training_dataframe, testing_dataframe, mappings_dict
 
