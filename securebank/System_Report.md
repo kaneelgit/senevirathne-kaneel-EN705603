@@ -114,19 +114,18 @@ Scale Continuous Data: Applies MinMax scaling to normalize numerical features.
 The SecureBank Fraud Detection System employs a combination of offline and online metrics to evaluate model performance and guide decision-making processes. These metrics focus on key aspects of fraud detection, such as the accuracy of identifying fraudulent transactions and the system's ability to adapt over time. By utilizing like precision and recall, we ensure a balanced approach that minimizes both false positives and false negatives in fraud detection.
 
 ### Offline Metrics
-1. Precision
+**1. Precision:**
 Precision measures the proportion of true positive predictions among all positive predictions made by the model.
 
-The precision is given by $ \text{Precision} = \frac{TP}{TP + FP} $.
+The precision is given by $\text{Precision}=\frac{TP}{TP + FP}$.
 
 TP = True Positives (correctly identified fraudulent transactions)
 FP = False Positives (non-fraudulent transactions incorrectly identified as fraudulent)
 
 High precision indicates that the model is effective at correctly identifying fraud, which is crucial in reducing the number of legitimate transactions flagged as fraudulent.
 
-2. Recall
+**2. Recall:**
 Definition: Recall measures the proportion of true positive predictions among all actual positive cases in the dataset.
-
 The recall is given by $ \text{Recall} = \frac{TP}{TP + FN} $.
 
 TP = True Positives (correctly identified fraudulent transactions)
@@ -134,7 +133,7 @@ FN = False Negatives (fraudulent transactions that were not identified by the mo
 
 High recall is essential for ensuring that most fraudulent transactions are caught, which is critical for minimizing financial losses.
 
-3. Accuracy
+**3. Accuracy:**
 Definition: Accuracy measures the overall proportion of correct predictions made by the model.
 The accuracy is given by $ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $.
 TP = True Positives (correctly identified fraudulent transactions).
