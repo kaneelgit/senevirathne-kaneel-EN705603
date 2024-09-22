@@ -8,6 +8,8 @@ The SecureBank Fraud Detection System is a proposed new system designed to effec
 
 The system requires the following data from a transaction: ```'trans_date_trans_time', 'cc_num', 'unix_time', 'merchant', 'category', 'amt', 'merch_lat', 'merch_long'```. Once received, the system identifies the user and combines the transaction data with the user information to run inference using a selected pre-existing model.
 
+![System Architecture](Presentation1.jpg)
+
 ### System Requirements
 
 1. **Model Performance -** 
