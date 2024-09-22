@@ -125,8 +125,11 @@ class Feature_Extractor:
         """
         Helper function to extract age from dob column
         """
-        dataframe['dob'] = pandas.to_datetime(dataframe['dob'])
-        dataframe['age'] = (datetime.now() - dataframe['dob']).astype('<m8[Y]')
+        # dataframe['dob'] = pandas.to_datetime(dataframe['dob'])
+        dataframe['dob'] = pandas.to_datetime(dataframe['dob'], format='%d-%b-%Y', errors='coerce')
+
+        # dataframe['age'] = (datetime.now() - dataframe['dob']).astype('<m8[Y]')
+        dataframe['age'] = ((pandas.Timestamp.now().replace(tzinfo=None) - dataframe['dob']).dt.days / 365.25)
         return dataframe
 
     def combine_categories(self, train_dataframe: pandas.DataFrame, test_dataframe: pandas.DataFrame, column: str, threshold: int):
