@@ -24,7 +24,7 @@ logistic_regression      v1   0.059038 0.730645  0.946855
                 lda      v1   0.104839 0.650000  0.973683
      sgd_classifier      v1   0.064606 0.745161  0.950740
 ```
-    Administrators can select the best model by name and version, ensuring that the chosen model is utilized for future transactions.
+Administrators can select the best model by name and version, ensuring that the chosen model is utilized for future transactions.
 
 4. **Auditing system performance -**
     The system provides an auditing feature, allowing administrators to test models on generated datasets. This dataset can be replaced by a new dataset or by transaction data collected over a specified timeframe. The auditing feature stores this information in a dataframe, facilitating future audits. Additionally, it generates real-time performance graphs in the terminal.
