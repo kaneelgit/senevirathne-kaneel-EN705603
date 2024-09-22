@@ -81,20 +81,20 @@ The SecureBank Fraud Detection System utilizes three datasets: customer informat
 
 The data pipeline consists of three main modules:
 
-1. Raw Data Handler (```raw_data_handler.py```):
+**1. Raw Data Handler** (```raw_data_handler.py```):
 
 - Extract: Loads data from CSV, JSON, or Parquet formats, converting them into pandas DataFrames.
 - Transform: Merges transaction, fraud, and customer datasets using unique identifiers (transaction numbers and credit card numbers) to create a comprehensive raw dataset.
 - Load: Saves the merged dataset in Parquet format.
 - Describe: Outputs dataset characteristics, including size and target variable distribution.
 
-2. Dataset Designer (```dataset_design.py```):
+**2. Dataset Designer** (```dataset_design.py```):
 
 - Extract: Imports the cleaned Parquet dataset.
 - Sample: Splits the dataset into training and testing sets, with a default 20% split.
 - Describe: Provides statistics on training/testing samples, ensuring balanced class distributions.
 
-3. Feature Extractor (```feature_extractor.py```):
+**3. Feature Extractor** (```feature_extractor.py```):
 
 - Transform: Extracts date components (hour, day, month) and calculates cardholder ages. Also transform the transaction date to trasaction difference for each customer.
 - Combine Categories: Bins less frequent categorical values into an 'Other' category to ensure balanced data.
