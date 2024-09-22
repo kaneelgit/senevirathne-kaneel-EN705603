@@ -8,7 +8,7 @@ from modules import raw_data_handler
 
 class Pipeline:
 
-    def __init__(self, model_version: str = "logistic_regression_v1", column_mapper_version: str = "v1"):
+    def __init__(self, model_version: str = "random forest_v1", column_mapper_version: str = "v1"):
 
         #initialize model version
         self.model_version = model_version
@@ -28,10 +28,24 @@ class Pipeline:
         #select get data from cc 
         inference_df = self.card_holder_info(input_data)
         #load model and make prediction 
-        prediction = self.model.predict(inference_df)
-        model_predict = 'Transaction Declined: Fraud Detected.' if prediction == 1 else 'Transaction Approved.'
+        #use the thresholds for random forest model
+        if "random forest" in self.model_version:
+            
+            hour_of_trans = inference_df['hour_of_trans'].iloc[0]
+            probability = self.model.predict_proba(inference_df)
 
-        #save data in a dataframe for history
+            if (hour_of_trans > 21) and (hour_of_trans < 4): #use night time thresholds
+                threshold = 0.5 #lower threshold to predict 
+            else:
+                threshold = 0.95 #higher threshold
+            
+            prediction = 1 if probability[:, 0][0] > threshold else 0
+
+        else:
+
+            prediction = self.model.predict(inference_df)
+        
+        model_predict = 'Transaction Declined: Fraud Detected.' if prediction == 1 else 'Transaction Approved.'
 
         return f"{model_predict}\nModel: {self.model_version}\n"
 

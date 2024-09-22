@@ -42,8 +42,8 @@ class Dataset_designer:
     def describe(self, *args, **kwargs):
 
         version = kwargs.get('version', 'v1.0')
-        train_storage_path = kwargs.get('Train Storage', f'../data_sources/train_data_{version}.parquet')
-        test_storage_path = kwargs.get('Test Storage', f'../data_sources/test_data_{version}.parquet')
+        train_storage_path = kwargs.get('Train_Storage', f'../data_sources/train_data_{version}.parquet')
+        test_storage_path = kwargs.get('Test_Storage', f'../data_sources/test_data_{version}.parquet')
 
         #important columns 
         data_description = {}
