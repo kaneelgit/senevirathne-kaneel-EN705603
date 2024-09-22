@@ -41,7 +41,9 @@ Run inference on a testig data sample. (test.json)
 curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d @test.json
 ```
 This will return the output in the terminal in the following format. 
+```
 {
 Transaction Approved.
 Model: random forest_v1
 }
+```
