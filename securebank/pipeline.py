@@ -97,7 +97,9 @@ class Pipeline:
         new_data_dict['month_of_trans'] = self.column_mapper['month_of_trans'][trans_date_trans_time.month_name()]
         # new_data_dict['age'] = (datetime.now() - cr_patient['dob']).astype('<m8[Y]')
         # new_data_dict['age'] = (pd.Timestamp.now() - cr_patient['dob']).astype('timedelta64[Y]')
-        new_data_dict['age'] = (pd.Timestamp.utcnow() - cr_patient['dob']).dt.days / 365.25
+        # new_data_dict['age'] = (pd.Timestamp.utcnow() - cr_patient['dob']).dt.days / 365.25
+        new_data_dict['age'] = ((pd.Timestamp.now().replace(tzinfo=None) - cr_patient['dob']).dt.days / 365.25)
+
 
         
         new_data_dict['state'] = self.column_mapper['state'][cr_patient['state'].iloc[0]]

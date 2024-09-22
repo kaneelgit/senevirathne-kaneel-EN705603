@@ -1,4 +1,4 @@
-# Securebank - Fraud Detection System
+# SecureBank - Fraud Detection System
 
 ## Description
 SecureBank is a machine learning-based software system designed to detect fraudulent transactions in banking operations.
@@ -41,3 +41,16 @@ This will return the output in the terminal. For example:
 Transaction Approved.
 Model: random forest_v1
 ```
+3. Reading model details: You can read all available models and their performance details using curl. Type the following in the terminal to get model details.
+```bash
+curl -X POST http://127.0.0.1:5000/get_history
+```
+This will return the output in the terminal. For example: 
+```makefile
+              Model Version  Precision   Recall  Accuracy
+logistic_regression      v1   0.059038 0.730645  0.946855
+      random forest      v1   0.121898 0.625806  0.978223
+                lda      v1   0.104839 0.650000  0.973683
+     sgd_classifier      v1   0.064606 0.745161  0.950740
+```
+
