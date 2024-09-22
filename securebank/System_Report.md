@@ -147,17 +147,52 @@ FN = False Negatives (fraudulent transactions that were not identified by the mo
 While accuracy is a useful metric to track, it may be misleading in cases of imbalanced datasets. Therefore, it should be interpreted alongside precision and recall.
 
 ### Online Metrics
-**1. Real-Time Precision and Recall Monitoring**
+**1. Real-Time Precision and Recall Monitoring:**
 Continuously monitors precision and recall during live transactions to assess the model's performance in real-time.
 Purpose: Enables prompt adjustments to the model or thresholds based on current performance, ensuring ongoing effectiveness in fraud detection.
 
-**2. Performance Tracking Over Time**
+**2. Performance Tracking Over Time:**
 A method to store and visualize precision, recall, and F1 score metrics over time to assess trends and model stability.
 Purpose: Facilitates informed decision-making for model retraining or switching, based on observed performance trends.
 
-**3. Threshold Optimization**
+**3. Threshold Optimization:**
 Definition: Adjusts decision thresholds dynamically based on the observed distribution of fraud incidents in real-time data.
 Purpose: Enhances the model's responsiveness to changing fraud patterns, optimizing the balance between precision and recall based on current data trends.
 
 ### Conclusion
 The metrics defined above are critical for ensuring that the SecureBank Fraud Detection System operates effectively and adapts to changing fraud patterns. By focusing on precision, recall and real-time monitoring, the system can maintain high performance while minimizing the risk of undetected fraud or excessive false positives. Continuous evaluation of these metrics will guide future enhancements, model selection, and overall system improvement.
+
+## Analysis of System Parameters and Configurations:
+
+### Feature Selection
+
+When developing the SecureBank Fraud Detection System, I prioritized specific features that significantly impact fraud detection. Key features include:
+
+- **Customer Transaction Occurrence:** This feature captures the frequency and timing of transactions for each customer. Anomalies, such as an unusual number of transactions within a short time frame or transactions made at atypical hours, are strong indicators of potential fraud. By analyzing these patterns, the model can effectively flag suspicious activity.
+
+- **Transaction Time (hour):** This feature was specifically important in identifying fraud detection. In the data analysis we found that fraud activities tend to happen mostly between 21 - 4 hours. So extracting this data from the transaction time data point is important for this model.
+
+- **Customer Age:** Age plays a crucial role in determining transaction behaviors. Different age groups exhibit distinct spending patterns and risk profiles, making it a valuable feature for the model. This age feature was extracted from the date of birth given for each customer. 
+
+### Dataset Design
+To tackle the challenge of class imbalance in our dataset, we employed the Synthetic Minority Over-sampling Technique (SMOTE). Given that fraudulent transactions represent a small fraction of the overall dataset, this imbalance can lead to biased model training.
+
+- **SMOTE for Oversampling:** By generating synthetic instances of fraudulent transactions, SMOTE helps create a more balanced training dataset. This technique enables the model to learn effectively from the minority class, ultimately improving its ability to detect fraud.
+
+- **Train-test split:** The train test split was done using the credit card numbers. A group of customers were set to the training set and their transactions were used to train the models. The other group of customers in the testing set were used to test the models. 
+
+### Model Evaluation and Selection
+We trained several models, including Logistic Regression, SGD Classifier, Linear Discriminant Analysis (LDA), and Random Forest. After careful evaluation, the Random Forest model emerged as the best performer for several reasons:
+
+- **Performance:** Random Forests demonstrated superior precision and recall, especially after we adjusted thresholds based on the time of day. This adaptability enhances the model's ability to detect fraud during high-risk periods.
+
+- **Efficiency:** Random Forests typically offer faster training times compared to more complex algorithms. This efficiency allows for quicker model updates and adaptations to evolving fraud patterns.
+
+- **Handling of Features:** Unlike some other models such as Logistic Regression, Random Forests can handle categorical features better without requiring one-hot encoding, simplifying data preprocessing and preserving the integrity of the original data. This would also allow us to generate faster responses when running inference, because we'd have a smaller feature space.
+
+To optimize performance further, we implemented variable thresholding. We established lower thresholds during nighttime—when fraud is more likely—and higher thresholds during the day. This strategy significantly improved recall and precision:
+
+- **Threshold Adjustments:** By training the Random Forest model and fine-tuning the thresholds on a validation set, we achieved a better balance between precision and recall, enhancing overall fraud detection capabilities.
+
+### Conclusion
+Through strategic feature selection, the implementation of SMOTE for dataset balancing, and the choice of a Random Forest model with variable thresholding, the SecureBank Fraud Detection System is well-equipped to effectively detect and mitigate fraudulent transactions. This analytical approach ensures that the system can adapt to the dynamic landscape of financial fraud.
