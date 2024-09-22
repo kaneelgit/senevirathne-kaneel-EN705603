@@ -126,6 +126,7 @@ High precision indicates that the model is effective at correctly identifying fr
 
 **2. Recall:**
 Definition: Recall measures the proportion of true positive predictions among all actual positive cases in the dataset.
+
 $\text{Recall}=\frac{TP}{TP + FN}$
 
 TP = True Positives (correctly identified fraudulent transactions)
@@ -145,14 +146,16 @@ FN = False Negatives (fraudulent transactions that were not identified by the mo
 
 While accuracy is a useful metric to track, it may be misleading in cases of imbalanced datasets. Therefore, it should be interpreted alongside precision and recall.
 
-Online Metrics
-1. Real-Time Precision and Recall Monitoring
+### Online Metrics
+**1. Real-Time Precision and Recall Monitoring**
 Continuously monitors precision and recall during live transactions to assess the model's performance in real-time.
 Purpose: Enables prompt adjustments to the model or thresholds based on current performance, ensuring ongoing effectiveness in fraud detection.
-2. Performance Tracking Over Time
+
+**2. Performance Tracking Over Time**
 A method to store and visualize precision, recall, and F1 score metrics over time to assess trends and model stability.
 Purpose: Facilitates informed decision-making for model retraining or switching, based on observed performance trends.
-3. Threshold Optimization
+
+**3. Threshold Optimization**
 Definition: Adjusts decision thresholds dynamically based on the observed distribution of fraud incidents in real-time data.
 Purpose: Enhances the model's responsiveness to changing fraud patterns, optimizing the balance between precision and recall based on current data trends.
 
