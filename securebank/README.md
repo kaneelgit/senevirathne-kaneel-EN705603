@@ -1,47 +1,43 @@
 # Securebank - Fraud Detection System
 
 ## Description
-This is a software system used to detect fraud in a bank transactions using machine learning. 
+SecureBank is a machine learning-based software system designed to detect fraudulent transactions in banking operations.
 
 ## Table of Contents
 - Prerequisites.
-- Installing.
-- Running the app.
-- Usage with examples.
+- Installation.
+- Example usage.
 
-## Prerequisite 
-The software is using docker to run the system. Docker must be installed in your machine in order to run the system. 
+## Prerequisites
+This system uses Docker to containerize and run the application. Ensure Docker is installed on your machine before proceeding.
 
 ## Installation
-Here are step-by-step instructions on how to get the app running.
+Follow the steps below to set up and run the application:
 
-Clone repository
+1. Clone the repository
 ```bash
 git clone https://github.com/creating-ai-enabled-systems-fall-2024/senevirathne-kaneel.git
 ```
-Change directory to application folder
+2. Navigate to the ```securebank``` directory:
 ```bash
 cd securebank
 ```
-Build docker image
+3. Build the Docker image. Replace ```<appname>``` with the desired name for your application (e.g., ```flask-app```):
 ```bash
 docker build -t <appname>:latest .
 ```
 ## Example Usage 
 
-Go to the securebank folder and run the application using docker.
+1. Running the Application: Go to the securebank folder and run the application using Docker. Make sure to replace ```<appname>``` with the name of the Docker image you built in the previous step.
 ```bash
-cd securebank
-
 docker run -p 5000:5000 <appname>
 ```
-
-Run inference on a testig data sample. (test.json)
+2. Running Inference: You can perform a prediction on a sample data file (e.g., test.json) using curl. Replace the path to test.json if necessary.
 ```bash
 curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d @test.json
 ```
-This will return the output in the terminal in the following format. 
-```
+This will return the output in the terminal. For example:
+```makefile
 Transaction Approved.
 Model: random forest_v1
 ```
