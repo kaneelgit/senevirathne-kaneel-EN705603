@@ -15,12 +15,16 @@ The software is using docker to run the system. Docker must be installed in your
 ## Installation
 Step-by-step instructions on how to get the development environment running.
 
+Clone repository
 ```bash
-#clone repository
 git clone https://github.com/creating-ai-enabled-systems-fall-2024/senevirathne-kaneel.git
-#change directory to application folder
+```
+Change directory to application folder
+```bash
 cd securebank
-#build docker image
+```
+Build docker image
+```bash
 docker build -t <appname>:latest .
 ```
 
