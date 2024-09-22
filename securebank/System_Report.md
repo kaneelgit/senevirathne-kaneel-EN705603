@@ -75,7 +75,9 @@ The system design incorporates key architectural principles and functionalities 
 ## Data, Data Pipelines, and Model
 
 ### Description of the Data
-The SecureBank Fraud Detection System utilizes three datasets: customer information, transaction details, and fraud records. Key attributes include transaction timestamps, credit card numbers, merchant details, and amounts. Notable patterns observed include the order succession timing for each customer, the correlation between transaction timing (hour, day, month) and fraud incidence, as well as demographic features like age, which significantly influence fraudulent activities.
+The SecureBank Fraud Detection System utilizes three datasets: customer information, transaction details, and fraud records. Key attributes include transaction timestamps, credit card numbers, merchant details, and amounts. Notable patterns observed include the order succession timing for each customer, the correlation between transaction timing (hour, day, month) and fraud incidence, as well as demographic features like age, which significantly influence fraudulent activities. 
+
+The timing correlation with fraudulent transactions allows us to do variable thresholding. For example, we could use a lower threshold to detect fraud during those vulnerable times and reduce increase the threshold during times that are not as vulnerable for fraud.
 
 ### Explanation of Data Pipelines
 
@@ -103,5 +105,55 @@ Scale Continuous Data: Applies MinMax scaling to normalize numerical features.
 - Correlation Analysis: Identifies highly correlated features for potential reduction.
 
 ### Description of Inputs and Outputs of the Model
-- **Inputs:** The model takes processed features, including time variables (hour, day, month), demographic information (age, state, job), and transaction details (amount, merchant, location). The feature set consists of both categorical and continuous variables.
+- **Inputs:** The model takes processed features, including transaction time difference for each customer, time variables (hour, day, month), demographic information (age, state, job), and transaction details (amount, merchant, location). The feature set consists of both categorical and continuous variables.
 - **Outputs:** The model predicts the likelihood of fraud (binary classification), outputting probabilities and class labels for transactions. The results are utilized for real-time fraud detection, allowing immediate actions to prevent fraudulent activities.
+
+## Metrics Definition 
+
+### Overview of Metrics
+The SecureBank Fraud Detection System employs a combination of offline and online metrics to evaluate model performance and guide decision-making processes. These metrics focus on key aspects of fraud detection, such as the accuracy of identifying fraudulent transactions and the system's ability to adapt over time. By utilizing like precision and recall, we ensure a balanced approach that minimizes both false positives and false negatives in fraud detection.
+
+### Offline Metrics
+1. Precision
+Precision measures the proportion of true positive predictions among all positive predictions made by the model.
+
+The precision is given by $ \text{Precision} = \frac{TP}{TP + FP} $.
+
+TP = True Positives (correctly identified fraudulent transactions)
+FP = False Positives (non-fraudulent transactions incorrectly identified as fraudulent)
+
+High precision indicates that the model is effective at correctly identifying fraud, which is crucial in reducing the number of legitimate transactions flagged as fraudulent.
+
+2. Recall
+Definition: Recall measures the proportion of true positive predictions among all actual positive cases in the dataset.
+
+The recall is given by $ \text{Recall} = \frac{TP}{TP + FN} $.
+
+TP = True Positives (correctly identified fraudulent transactions)
+FN = False Negatives (fraudulent transactions that were not identified by the model)
+
+High recall is essential for ensuring that most fraudulent transactions are caught, which is critical for minimizing financial losses.
+
+3. Accuracy
+Definition: Accuracy measures the overall proportion of correct predictions made by the model.
+The accuracy is given by $ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $.
+TP = True Positives (correctly identified fraudulent transactions).
+TN = True Negatives (non-fraudulent transactions correctly identified).
+FP = False Positives (non-fraudulent transactions incorrectly identified as fraudulent)
+FN = False Negatives (fraudulent transactions that were not identified by the model)
+
+While accuracy is a useful metric to track, it may be misleading in cases of imbalanced datasets. Therefore, it should be interpreted alongside precision and recall.
+
+Online Metrics
+1. Real-Time Precision and Recall Monitoring
+Continuously monitors precision and recall during live transactions to assess the model's performance in real-time.
+Purpose: Enables prompt adjustments to the model or thresholds based on current performance, ensuring ongoing effectiveness in fraud detection.
+2. Performance Tracking Over Time
+A method to store and visualize precision, recall, and F1 score metrics over time to assess trends and model stability.
+Purpose: Facilitates informed decision-making for model retraining or switching, based on observed performance trends.
+3. Threshold Optimization
+Definition: Adjusts decision thresholds dynamically based on the observed distribution of fraud incidents in real-time data.
+Purpose: Enhances the model's responsiveness to changing fraud patterns, optimizing the balance between precision and recall based on current data trends.
+
+### Conclusion
+The metrics defined above are critical for ensuring that the SecureBank Fraud Detection System operates effectively and adapts to changing fraud patterns. By focusing on precision, recall and real-time monitoring, the system can maintain high performance while minimizing the risk of undetected fraud or excessive false positives. Continuous evaluation of these metrics will guide future enhancements, model selection, and overall system improvement.
