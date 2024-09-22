@@ -196,3 +196,20 @@ To optimize performance further, we implemented variable thresholding. We establ
 
 ### Conclusion
 Through strategic feature selection, the implementation of SMOTE for dataset balancing, and the choice of a Random Forest model with variable thresholding, the SecureBank Fraud Detection System is well-equipped to effectively detect and mitigate fraudulent transactions. This analytical approach ensures that the system can adapt to the dynamic landscape of financial fraud.
+
+## Post-deployment Policies
+
+### Monitoring and Maintenance Plan
+
+To ensure the ongoing effectiveness of the SecureBank Fraud Detection System, real-time monitoring of key performance metrics such as precision, recall, will be conducted. By continuously assessing these metrics, we can detect any degradation in the system’s ability to identify fraudulent transactions. Regular evaluations will be scheduled to compare model predictions against actual transaction outcomes, ensuring that the system maintains a high level of accuracy.
+
+Another critical aspect of the maintenance plan is data drift analysis. We will establish a process to monitor changes in the input features to ensure consistency with the data used during model training. Statistical tests will be employed to identify significant shifts in data distribution that may impact performance. Additionally, a model retraining will be performed if a data drift is identified. This ensures that the model remains relevant and effective in detecting fraud. 
+
+Futuremore, the live fraud transaction data will be collected and stored in an additional dataset for future analysis and model training and testing. This data would be beneficial to identify if fraud patterns change over time and a difference in fraud transaction hours or occurences happen. 
+
+### Fault Mitigation Strategies
+To address potential faults in the system, a comprehensive set of mitigation strategies can be implemented. One such idea would be a fallback mechanism where a failure or unusual behavior of the current model will revert the system to a previous model version. This strategy ensures that all prior model versions are preserved and can be deployed immediately if needed.
+
+Anomaly detection techniques can be employed to identify unusual transaction patterns that may indicate model failure or data quality issues. Regular reviews of flagged transactions will help adjust model parameters or retrain the model as necessary. Additionally, comprehensive logging and auditing practices could be implemented to capture all processed transactions, including model predictions and outcomes. These logs will be regularly audited to identify trends, recurring issues, or areas for improvement.
+
+Other ideas include implementing a user feedback loop to allow end-users to provide insights regarding model predictions. This will help to refine and improve model accuracy over time. Users will be encouraged to report false positives and negatives, contributing to a more robust training dataset for future iterations. 
