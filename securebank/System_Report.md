@@ -101,6 +101,7 @@ The data pipeline consists of three main modules:
 - Convert to Integers: Encodes categorical variables for model input and creates a mapping for interpretation.
 Scale Continuous Data: Applies MinMax scaling to normalize numerical features.
 - Correlation Analysis: Identifies highly correlated features for potential reduction.
-Description of Inputs and Outputs of the Model
-- Inputs: The model takes processed features, including time variables (hour, day, month), demographic information (age, state, job), and transaction details (amount, merchant, location). The feature set consists of both categorical and continuous variables.
-- Outputs: The model predicts the likelihood of fraud (binary classification), outputting probabilities and class labels for transactions. The results are utilized for real-time fraud detection, allowing immediate actions to prevent fraudulent activities.
+
+### Description of Inputs and Outputs of the Model
+- **Inputs:** The model takes processed features, including time variables (hour, day, month), demographic information (age, state, job), and transaction details (amount, merchant, location). The feature set consists of both categorical and continuous variables.
+- **Outputs:** The model predicts the likelihood of fraud (binary classification), outputting probabilities and class labels for transactions. The results are utilized for real-time fraud detection, allowing immediate actions to prevent fraudulent activities.
