@@ -71,3 +71,36 @@ A future implementation for the system would involve developing a user interface
 
 ### Summary
 The system design incorporates key architectural principles and functionalities to address the requirements for effective fraud detection. The modular structure and real-time processing capabilities position the SecureBank system to adapt to evolving fraud patterns while maintaining high performance and reliability.
+
+## Data, Data Pipelines, and Model
+
+### Description of the Data
+The SecureBank Fraud Detection System utilizes three datasets: customer information, transaction details, and fraud records. Key attributes include transaction timestamps, credit card numbers, merchant details, and amounts. Notable patterns observed include the order succession timing for each customer, the correlation between transaction timing (hour, day, month) and fraud incidence, as well as demographic features like age, which significantly influence fraudulent activities.
+
+### Explanation of Data Pipelines
+
+The data pipeline consists of three main modules:
+
+1. Raw Data Handler (```raw_data_handler.py```):
+
+- Extract: Loads data from CSV, JSON, or Parquet formats, converting them into pandas DataFrames.
+- Transform: Merges transaction, fraud, and customer datasets using unique identifiers (transaction numbers and credit card numbers) to create a comprehensive raw dataset.
+- Load: Saves the merged dataset in Parquet format.
+- Describe: Outputs dataset characteristics, including size and target variable distribution.
+
+2. Dataset Designer (```dataset_design.py```):
+
+- Extract: Imports the cleaned Parquet dataset.
+- Sample: Splits the dataset into training and testing sets, with a default 20% split.
+- Describe: Provides statistics on training/testing samples, ensuring balanced class distributions.
+
+3. Feature Extractor (```feature_extractor.py```):
+
+- Transform: Extracts date components (hour, day, month) and calculates cardholder ages. Also transform the transaction date to trasaction difference for each customer.
+- Combine Categories: Bins less frequent categorical values into an 'Other' category to ensure balanced data.
+- Convert to Integers: Encodes categorical variables for model input and creates a mapping for interpretation.
+Scale Continuous Data: Applies MinMax scaling to normalize numerical features.
+- Correlation Analysis: Identifies highly correlated features for potential reduction.
+Description of Inputs and Outputs of the Model
+- Inputs: The model takes processed features, including time variables (hour, day, month), demographic information (age, state, job), and transaction details (amount, merchant, location). The feature set consists of both categorical and continuous variables.
+- Outputs: The model predicts the likelihood of fraud (binary classification), outputting probabilities and class labels for transactions. The results are utilized for real-time fraud detection, allowing immediate actions to prevent fraudulent activities.
