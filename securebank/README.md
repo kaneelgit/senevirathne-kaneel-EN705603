@@ -27,15 +27,12 @@ Build docker image
 ```bash
 docker build -t <appname>:latest .
 ```
-## Usage 
+## Example Usage 
 
-Go to the securebank folder.
+Go to the securebank folder and run the application using docker.
 ```bash
 cd securebank
-```
 
-Run docker app.
-```bash
 docker run -p 5000:5000 <appname>
 ```
 
@@ -43,8 +40,8 @@ Run inference on a testig data sample. (test.json)
 ```bash
 curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d @test.json
 ```
-This will return a similar output.
-```json
+This will return the output in the terminal in the following format. 
+{
 Transaction Approved.
 Model: random forest_v1
-```
+}
