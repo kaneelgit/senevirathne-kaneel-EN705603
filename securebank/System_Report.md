@@ -117,7 +117,7 @@ The SecureBank Fraud Detection System employs a combination of offline and onlin
 **1. Precision:**
 Precision measures the proportion of true positive predictions among all positive predictions made by the model.
 
-The precision is given by $\text{Precision}=\frac{TP}{TP + FP}$.
+$\text{Precision}=\frac{TP}{TP + FP}$
 
 TP = True Positives (correctly identified fraudulent transactions)
 FP = False Positives (non-fraudulent transactions incorrectly identified as fraudulent)
@@ -126,7 +126,7 @@ High precision indicates that the model is effective at correctly identifying fr
 
 **2. Recall:**
 Definition: Recall measures the proportion of true positive predictions among all actual positive cases in the dataset.
-The recall is given by $ \text{Recall} = \frac{TP}{TP + FN} $.
+$\text{Recall}=\frac{TP}{TP + FN}$
 
 TP = True Positives (correctly identified fraudulent transactions)
 FN = False Negatives (fraudulent transactions that were not identified by the model)
@@ -135,7 +135,9 @@ High recall is essential for ensuring that most fraudulent transactions are caug
 
 **3. Accuracy:**
 Definition: Accuracy measures the overall proportion of correct predictions made by the model.
-The accuracy is given by $ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $.
+
+$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}$
+
 TP = True Positives (correctly identified fraudulent transactions).
 TN = True Negatives (non-fraudulent transactions correctly identified).
 FP = False Positives (non-fraudulent transactions incorrectly identified as fraudulent)
