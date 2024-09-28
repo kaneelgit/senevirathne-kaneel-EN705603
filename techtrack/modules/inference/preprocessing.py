@@ -48,15 +48,15 @@ def capture_video(video_path: str, drop_rate: int = 10):
 
         if len(batch) == drop_rate:
             #convert the list to the correct format of images
-            squeezed_batch = [np.squeeze(img, axis=0) for img in batch]
-            final_batch = np.stack(squeezed_batch, axis=0)      
-            yield final_batch
+            # squeezed_batch = [np.squeeze(img, axis=0) for img in batch]
+            # final_batch = np.stack(squeezed_batch, axis=0)      
+            yield batch
             batch = [] #collect next batch
 
         frame_number += 1
 
     #yeild the left over stuff
     if batch:
-        squeezed_batch = [np.squeeze(img, axis=0) for img in batch]
-        final_batch = np.stack(squeezed_batch, axis=0)      
-        yield final_batch
+        # squeezed_batch = [np.squeeze(img, axis=0) for img in batch]
+        # final_batch = np.stack(squeezed_batch, axis=0)      
+        yield batch
