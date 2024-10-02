@@ -16,11 +16,11 @@ def capture_video(video_path: str, drop_rate: int = 10):
     """
 
     #open video
-    video = cv2.VideoCapture(video_path)
+    video = cv2.VideoCapture(video_path, cv2.CAP_FFMPEG)
 
     #check if open
     if not video.isOpened():
-        raise("Video didn't succesfully open")
+        raise Exception("Video didn't succesfully open")
         
     #iterate through frames and yeild
     frame_number = 0
@@ -49,7 +49,7 @@ def capture_video(video_path: str, drop_rate: int = 10):
         if len(batch) == drop_rate:
             #convert the list to the correct format of images
             # squeezed_batch = [np.squeeze(img, axis=0) for img in batch]
-            # final_batch = np.stack(squeezed_batch, axis=0)      
+            # final_batch = np.stack(squeezed_batch, axis=0)    
             yield batch
             batch = [] #collect next batch
 
