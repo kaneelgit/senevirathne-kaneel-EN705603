@@ -24,11 +24,18 @@ def vertical_flip(image):
     return flipped_image
 
 def convert_to_grayscale(image):
+    image = image * 255.
     grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  
-    return grayscale_image
+    return grayscale_image / 255.
 
 
-def adjust_brightness(image, brightness_range=(0.5, 1.5)):
-    factor = np.random.uniform(brightness_range[0], brightness_range[1])
-    bright_image = cv2.convertScaleAbs(image, alpha=factor, beta=0)  
-    return bright_image
+def adjust_brightness(image, beta):
+    image = image * 255.
+    bright_image = cv2.convertScaleAbs(image, alpha=1, beta=beta)
+
+    return bright_image / 255.
+
+def adjust_contrast(image, alpha):
+    image = image * 255.
+    contrast_image = cv2.convertScaleAbs(image, alpha=alpha, beta=0)
+    return contrast_image / 255.
