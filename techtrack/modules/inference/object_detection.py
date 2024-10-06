@@ -56,6 +56,27 @@ class Model:
 
         return bounding_boxes, class_categories, scores
     
+    def post_processv2(self, predict_output, score_threshold = 0.5):
+        
+        #get bounding boxes, categories and 
+        bounding_boxes = []
+        class_categories = []
+        all_scores = []
+
+        for feature_map in predict_output:
+            for detection in feature_map:
+                boxes = detection[:4]
+                score = detection[4]
+                class_score = detection[5:]
+
+                #append data if greater than threshold
+                if score > score_threshold:
+                    bounding_boxes.append(boxes)
+                    class_categories.append(np.argmax(class_score))
+                    all_scores.append(class_score)
+
+        return bounding_boxes, class_categories, all_scores
+    
 
 def draw_bounding_box(image, box, confidence = None, class_id = None, label = None, color=(255, 0, 0), thickness=2):
     """
