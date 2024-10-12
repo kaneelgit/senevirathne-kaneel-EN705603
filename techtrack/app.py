@@ -13,11 +13,10 @@ model_config_path = 'storage/models/yolo_model_1/yolov4-tiny-logistics_size_416_
 names_path = 'storage/models/yolo_model_1/logistics.names'
 
 #save images
-save_dir = "storage/prediction/test"
+save_dir = "storage/prediction/test_1"
 
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
-
 
 #initialize model
 model = object_detection.Model(model_weights_path, model_config_path, names_path)
@@ -37,9 +36,11 @@ for frames in preprocessing.capture_video("udp://127.0.0.1:23000"):
         filtered_boxes = [bounding_boxes[x] for x in indices]
         filtered_scores = [scores[x] for x in indices]
         filtered_categories = [class_categories[x] for x in indices]  
+
         filtered_labels = [labels[i] for i in filtered_categories]
 
         if len(filtered_labels) > 0:
+
             print(f"Detected objects: {filtered_labels}")
 
             #frame transposed
@@ -53,3 +54,14 @@ for frames in preprocessing.capture_video("udp://127.0.0.1:23000"):
             #save image
             image_name = os.path.join(save_dir, f"{time.time_ns()}.jpg")
             cv2.imwrite(image_name, image * 255.)
+
+            with open(image_name.replace('.jpg', '.txt'), 'w') as file:
+                for i, id in enumerate(filtered_categories):
+                        #convet to scorer
+                        arr = np.zeros(20)
+                        arr[id] = filtered_scores[i]
+                        for box in filtered_boxes[i]:
+                            file.write(f" {box}")
+                        file.write(f" {str(filtered_scores[i])}")
+                        file.write(" " + " ".join(str(score) for score in arr))
+                        file.write(f"\n")
