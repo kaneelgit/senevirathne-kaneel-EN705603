@@ -46,3 +46,34 @@ Below is an example image detected by the interface service.
 
 ![Alt text2](1728760414631207884.jpg)
 
+### Rectification Service ###
+
+To access rectification service help. Run the following code. 
+```bash
+rectification_service.py -h
+```
+```bash
+usage: rectification_service.py [-h] --prediction_dir PREDICTION_DIR --annotation_dir ANNOTATION_DIR --output_dir OUTPUT_DIR [--num_samples NUM_SAMPLES] [--iou_threshold IOU_THRESHOLD]
+
+Rectification service for hard negative mining and image augmentation.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --prediction_dir PREDICTION_DIR
+                        Path to the directory containing prediction files.
+  --annotation_dir ANNOTATION_DIR
+                        Path to the directory containing annotation files.
+  --output_dir OUTPUT_DIR
+                        Path to the directory where augmented images will be saved.
+  --num_samples NUM_SAMPLES
+                        Number of hard negatives to sample and augment.
+  --iou_threshold IOU_THRESHOLD
+                        IoU threshold for selecting hard negatives.
+```
+
+Example usage.
+```bash
+python rectification_service.py --prediction_dir <prediction_directory> --annotation_dir <annotation_directory> --output_dir <output_directory> --num_samples 10 --iou_threshold 0.5
+```
+
+

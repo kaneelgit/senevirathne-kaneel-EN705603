@@ -2,7 +2,8 @@ import os
 import cv2
 import argparse
 import numpy as np
-from modules.rectification.augmentation import horizontal_flip, vertical_flip, gaussian_blur, resize_image, convert_to_grayscale, adjust_brightness, adjust_contrast, sample_hard_negatives
+from modules.rectification.augmentation import horizontal_flip, vertical_flip, gaussian_blur, resize_image, convert_to_grayscale, adjust_brightness, adjust_contrast
+from modules.rectification.hard_negative_mining import sample_hard_negatives
 
 def augment_image(image):
 
