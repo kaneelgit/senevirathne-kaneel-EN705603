@@ -40,7 +40,7 @@ ffmpeg -re -i <video directory> -r 30 -vcodec mpeg4 -f mpegts udp://127.0.0.1:23
 ```
 Below is an example of the interface service detecting objects. 
 
-![Screenshot](Screenshot%2024-10-12%20153557.png)
+![Screenshot](screenshot.png)
 
 Below is an example image detected by the interface service. 
 
