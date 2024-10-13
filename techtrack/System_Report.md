@@ -77,6 +77,10 @@ I implemented a hard negative mining strategy that excluded Non-Maximal Suppress
 
 Excluding NMS in this analysis facilitated the capture of all predictions, including overlapping bounding boxes. This allowed me to pinpoint scenarios where multiple boxes were incorrectly predicting the same object, shedding light on the model's limitations in differentiating closely situated objects. By recognizing these patterns without the filtering effect of NMS, I gained a clearer understanding of the model's weaknesses. This knowledge is crucial for retraining, as it allows for the incorporation of these hard negatives into the training dataset, honing in on the specific instances where the model struggles. By addressing these problematic cases, the model can improve its ability to make accurate distinctions in complex scenarios, leading to overall enhanced performance in future object detection tasks.
 
+![nms](van.png)
+
+The above image shows one of the hard negative cases mined from the stratergy. This shows a lot of overlapping bounding boxes and using these hard negative cases, we could refine the model bounding boxes, when retraining the model for future uses.
+
 ### Using Docker for Interface Service ###
 
 The use of Docker in managing object detection processes significantly enhances the performance of the system by enabling efficient handling of heavy computational tasks. By leveraging Docker alongside FFmpeg and UDP streams to capture frames and run inference, the system can process video input seamlessly while maintaining real-time monitoring capabilities. This modular approach allows for easy scalability, ensuring that the system can efficiently manage multiple instances of object detection in large-scale warehouse operations. Additionally, the isolation provided by Docker ensures that the object detection processes do not interfere with one another, resulting in consistent performance across various tasks. This strategy ultimately streamlines the workflow, enhances the responsiveness of the object detection system, and supports effective resource management.
