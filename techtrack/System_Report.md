@@ -51,6 +51,14 @@ After selecting YOLO as the model, I analyzed different YOLO model versions usin
 
 The results showed that yolo model 2 (labeled with 'x') had the highest precision and recall combination out of all other combinations of iou threshold and score thresholds. 
 
-I further conducted a time analysis to find the faster model. Results showed that the YOLO model v2 was slightly faster running inference on a single image compared to v1. So YOLO model v2 was chosen as the model. 
+I further conducted a time analysis to find the faster model. Results showed that the YOLO model v2 was slightly faster running inference on a single image compared to v1. So YOLO model v2 was chosen as the model for deployment. 
 
 ![time](time.png)
+
+### IOU, score and NMS threshold selection for Inference Service ###
+
+Non-Maximal Suppression (NMS) plays a crucial role in filtering overlapping bounding boxes and retaining only the most confident detections during object detection. Adjusting the NMS IOU threshold, score threshold, and IOU selection is key to optimizing detection performance, as these parameters help balance precision and recall. Setting the thresholds too high could result in the system failing to distinguish closely placed objects, such as stacked boxes in a warehouse, leading to missed detections. Conversely, if the thresholds are too low, the system might suppress too many valid detections, increasing false positives. To address this, I tested various NMS IOU thresholds, score thresholds, and IOU selection strategies to find the optimal configuration for warehouse object detection. The evaluation process involved using recall and precision metrics to find a balanced configuration that minimized errors while maintaining robust detection, ensuring optimal performance for warehouse object detection. Below is a table of the tested IOU, NMS and score thresholds for both models to select the optimal threshold for high recall and precision values. 
+
+![eval](table.png)
+
+Looking at the above table, YOLO model v2 with a score threshold of 0.25, nms_iou_threshold of 0.25 and an iou_threshold of 0.25 was selected because of its high precision and recall (0.75 and 0.62) respectively. While some other threshold combinations showed high precisions, recall values were low, thus the thresholds that produced good precision and recall were chosen.
