@@ -40,3 +40,17 @@ In evaluating our object detection system, offline metrics such as Precision, Re
 For real-time monitoring of our object detection system, online metrics such as the time taken to detect an object in an image are essential to ensure system responsiveness and efficiency. This metric tracks the latency of the detection process, providing insights into how quickly the models can process incoming video frames and generate bounding box predictions. Additionally, we can include metrics such as Frames Per Second (FPS) to evaluate the system's throughput, as well as the success rate of detections over time to ensure consistent performance. Monitoring these online metrics can be achieved through logging and visualization tools that display real-time analytics, allowing for immediate identification of performance bottlenecks and enabling proactive adjustments to maintain optimal operation within the warehouse setting.
 
 ## System Parameters and Configurations
+
+### Model Selection for Inference Service ###
+
+The selection of the object detection model, such as YOLO, directly influences the speed and accuracy of the system. YOLO (You Only Look Once) is particularly useful for real-time applications due to its balance between speed and accuracy. YOLO’s speed allows for near real-time detection, which is crucial in a dynamic environment like a warehouse. However, the trade-off is that it may not capture fine details, which could lead to missed detections. 
+
+After selecting YOLO as the model, I analyzed different YOLO model versions using the test dataset to find the best version for deployment. In order to do this, I conducted an analysis to find the best thresholds for the score and IOU for the bounding box produced by each model. 
+
+![iou_score](iou_score.jpg)
+
+The results showed that yolo model 2 (labeled with 'x') had the highest precision and recall combination out of all other combinations of iou threshold and score thresholds. 
+
+I further conducted a time analysis to find the faster model. Results showed that the YOLO model v2 was slightly faster running inference on a single image compared to v1. So YOLO model v2 was chosen as the model. 
+
+![time](time.png)
