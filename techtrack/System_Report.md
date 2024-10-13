@@ -62,3 +62,11 @@ Non-Maximal Suppression (NMS) plays a crucial role in filtering overlapping boun
 ![eval](table.png)
 
 Looking at the above table, YOLO model v2 with a score threshold of 0.25, nms_iou_threshold of 0.25 and an iou_threshold of 0.25 was selected because of its high precision and recall (0.75 and 0.62) respectively. While some other threshold combinations showed high precisions, recall values were low, thus the thresholds that produced good precision and recall were chosen.
+
+### Data Augmentation Technique Selection for Rectification ###
+
+Implementing data augmentations such as rotation, scaling, and contrast adjustments enables the model to adapt to unexpected scenarios, such as poor lighting or smoke in the warehouse. These augmentations enhance the model's robustness in adverse conditions, thereby reducing errors in critical situations. For instance, simulating smoke or mist-like conditions can significantly improve the model's ability to detect objects in low-visibility environments. To evaluate the impact of data augmentation, I generated various augmented images and conducted a visual analysis of the model's performance with these modifications. For example, adjusting the contrast adversely affected the model's accuracy. 
+
+![contrast](contrast.png)
+
+The image above illustrates that the model's performance can decline on particularly sunny days. This highlights the importance of incorporating data that may not be present in the training set but can replicate real-world adverse scenarios for effective model retraining.
