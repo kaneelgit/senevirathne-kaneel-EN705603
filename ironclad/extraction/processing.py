@@ -33,7 +33,8 @@ class Preprocessing:
 # Example 
 if __name__ == "__main__":
     image_size = 160
-    image_path = "simclr_resources/probe/Alan_Ball/Alan_Ball_0002.jpg"
+    image_path = "storage/probe/Alan_Ball/Alan_Ball_0002.jpg"
     preprocessing = Preprocessing(image_size=image_size)
     probe = Image.open(image_path)
+    import pdb; pdb.set_trace()
     print(preprocessing.process(probe).shape)
