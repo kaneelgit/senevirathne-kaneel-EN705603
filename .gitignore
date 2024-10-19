@@ -2,3 +2,4 @@ securebank/data_sources/
 securebank/storage/
 techtrack/storage/
 ironclad/storage/
+ironclad/simclr_resources/

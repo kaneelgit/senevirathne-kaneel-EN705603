@@ -18,16 +18,16 @@ class Embedding:
 
 
 
-if __name__ == "__main__":
-    from PIL import Image
-    from preprocess import Preprocessing
+# if __name__ == "__main__":
+#     from PIL import Image
+#     from processing import Preprocessing
 
-    image_size = 160
-    preprocessing = Preprocessing(image_size=image_size)
-    image_path = "simclr_resources/probe/Alan_Ball/Alan_Ball_0002.jpg"
-    probe = Image.open(image_path)
-    probe = preprocessing.process(probe)
+#     image_size = 160
+#     preprocessing = Preprocessing(image_size=image_size)
+#     image_path = "storage/probe/Alan_Ball/Alan_Ball_0002.jpg"
+#     probe = Image.open(image_path)
+#     probe = preprocessing.process(probe)
 
-    model = Embedding()
+#     model = Embedding(device = 'cuda')
 
-    print(model.encode(probe).shape)
+#     print(model.encode(probe).shape)

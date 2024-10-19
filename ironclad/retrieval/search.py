@@ -60,53 +60,53 @@ class FaissSearch:
         return distances
 
 
-if __name__ == "__main__":
-    import numpy as np
+# if __name__ == "__main__":
+#     import numpy as np
 
-    from indexing import FaissIndex
-    from search import FaissSearch
-
-
-    # Create some random vectors (10k vectors of dimension 128)
-    vectors = np.random.random((10000, 256)).astype('float32')
-    metadata = [f"Vector-{i}" for i in range(10000)]
-    query_vector = np.random.random((1, 256)).astype('float32')
-
-    # Example 1: IVF with custom nlist (number of clusters)
-    print("\nExample 1: IVF Index with Custom nlist")
-    faiss_index_ivf = FaissIndex(index_type='IVF', nlist=200)
-    faiss_index_ivf.add_embeddings(vectors, metadata=metadata)
-    faiss_search_ivf = FaissSearch(faiss_index_ivf, metric='euclidean')
-    distances_ivf, indices_ivf, metadata_ivf = faiss_search_ivf.search(query_vector, k=5)
-    for i in range(5):
-        print(f"Neighbor {i+1}: Index {indices_ivf[0][i]}, Distance {distances_ivf[0][i]}, Metadata: {metadata_ivf[i]}")
+#     from index import FaissIndex
+#     from search import FaissSearch
 
 
-    # Example 2: PQ with custom m and bits_per_subquantizer
-    print("\nExample 2: PQ Index with Custom m and bits_per_subquantizer")
-    faiss_index_pq = FaissIndex(index_type='PQ', m=16, bits_per_subquantizer=6)
-    faiss_index_pq.add_embeddings(vectors, metadata=metadata)
-    faiss_search_pq = FaissSearch(faiss_index_pq, metric='dot_product')
-    distances_pq, indices_pq, metadata_pq = faiss_search_pq.search(query_vector, k=5)
-    for i in range(5):
-        print(f"Neighbor {i+1}: Index {indices_pq[0][i]}, Distance {distances_pq[0][i]}, Metadata: {metadata_pq[i]}")
+#     # Create some random vectors (10k vectors of dimension 128)
+#     vectors = np.random.random((10000, 256)).astype('float32')
+#     metadata = [f"Vector-{i}" for i in range(10000)]
+#     query_vector = np.random.random((1, 256)).astype('float32')
+
+#     # Example 1: IVF with custom nlist (number of clusters)
+#     print("\nExample 1: IVF Index with Custom nlist")
+#     faiss_index_ivf = FaissIndex(index_type='IVF', nlist=200)
+#     faiss_index_ivf.add_embeddings(vectors, metadata=metadata)
+#     faiss_search_ivf = FaissSearch(faiss_index_ivf, metric='euclidean')
+#     distances_ivf, indices_ivf, metadata_ivf = faiss_search_ivf.search(query_vector, k=5)
+#     for i in range(5):
+#         print(f"Neighbor {i+1}: Index {indices_ivf[0][i]}, Distance {distances_ivf[0][i]}, Metadata: {metadata_ivf[i]}")
 
 
-    # Example 3: HNSW with custom hnsw_m (number of neighbors)
-    print("\nExample 3: HNSW Index with Custom hnsw_m")
-    faiss_index_hnsw = FaissIndex(index_type='HNSW', hnsw_m=48)
-    faiss_index_hnsw.add_embeddings(vectors, metadata=metadata)
-    faiss_search_hnsw = FaissSearch(faiss_index_hnsw, metric='euclidean')
-    distances_hnsw, indices_hnsw, metadata_hnsw = faiss_search_hnsw.search(query_vector, k=5)
-    for i in range(5):
-        print(f"Neighbor {i+1}: Index {indices_hnsw[0][i]}, Distance {distances_hnsw[0][i]}, Metadata: {metadata_hnsw[i]}")
+#     # Example 2: PQ with custom m and bits_per_subquantizer
+#     print("\nExample 2: PQ Index with Custom m and bits_per_subquantizer")
+#     faiss_index_pq = FaissIndex(index_type='PQ', m=16, bits_per_subquantizer=6)
+#     faiss_index_pq.add_embeddings(vectors, metadata=metadata)
+#     faiss_search_pq = FaissSearch(faiss_index_pq, metric='dot_product')
+#     distances_pq, indices_pq, metadata_pq = faiss_search_pq.search(query_vector, k=5)
+#     for i in range(5):
+#         print(f"Neighbor {i+1}: Index {indices_pq[0][i]}, Distance {distances_pq[0][i]}, Metadata: {metadata_pq[i]}")
 
 
-    # Example 4: Binary IVF with custom nlist for binary data
-    print("\nExample 4: Binary IVF Index with Custom nlist")
-    faiss_index_flat = FaissIndex(index_type='brute_force', nlist=50)
-    faiss_index_flat.add_embeddings(vectors, metadata=metadata)
-    faiss_search_flat = FaissSearch(faiss_index_flat, metric='dot_product')
-    distances_flat, indices_flat, metadata_flat = faiss_search_flat.search(query_vector, k=5)
-    for i in range(5):
-        print(f"Neighbor {i+1}: Index {indices_flat[0][i]}, Distance {distances_flat[0][i]}, Metadata: {metadata_flat[i]}")
+#     # Example 3: HNSW with custom hnsw_m (number of neighbors)
+#     print("\nExample 3: HNSW Index with Custom hnsw_m")
+#     faiss_index_hnsw = FaissIndex(index_type='HNSW', hnsw_m=48)
+#     faiss_index_hnsw.add_embeddings(vectors, metadata=metadata)
+#     faiss_search_hnsw = FaissSearch(faiss_index_hnsw, metric='euclidean')
+#     distances_hnsw, indices_hnsw, metadata_hnsw = faiss_search_hnsw.search(query_vector, k=5)
+#     for i in range(5):
+#         print(f"Neighbor {i+1}: Index {indices_hnsw[0][i]}, Distance {distances_hnsw[0][i]}, Metadata: {metadata_hnsw[i]}")
+
+
+#     # Example 4: Binary IVF with custom nlist for binary data
+#     print("\nExample 4: Binary IVF Index with Custom nlist")
+#     faiss_index_flat = FaissIndex(index_type='brute_force', nlist=50)
+#     faiss_index_flat.add_embeddings(vectors, metadata=metadata)
+#     faiss_search_flat = FaissSearch(faiss_index_flat, metric='dot_product')
+#     distances_flat, indices_flat, metadata_flat = faiss_search_flat.search(query_vector, k=5)
+#     for i in range(5):
+#         print(f"Neighbor {i+1}: Index {indices_flat[0][i]}, Distance {distances_flat[0][i]}, Metadata: {metadata_flat[i]}")

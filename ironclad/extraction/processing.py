@@ -30,11 +30,10 @@ class Preprocessing:
         probe = self.transform(probe).unsqueeze(0).to(self.device)
         return probe
 
-# Example 
-if __name__ == "__main__":
-    image_size = 160
-    image_path = "storage/probe/Alan_Ball/Alan_Ball_0002.jpg"
-    preprocessing = Preprocessing(image_size=image_size)
-    probe = Image.open(image_path)
-    import pdb; pdb.set_trace()
-    print(preprocessing.process(probe).shape)
+# # Example 
+# if __name__ == "__main__":
+#     image_size = 160
+#     image_path = "storage/probe/Alan_Ball/Alan_Ball_0002.jpg"
+#     preprocessing = Preprocessing(image_size=image_size)
+#     probe = Image.open(image_path)
+#     print(preprocessing.process(probe).shape)
