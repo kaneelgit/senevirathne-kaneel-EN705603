@@ -3,14 +3,15 @@ import os
 import numpy as np
 from retrieval.index import FaissIndex
 from retrieval.search import FaissSearch
+from PIL import Image
 
 class Pipeline:
 
-    def __init__(self, image_size=160, model_device='cuda', faiss_index_type='Flat', gallery_dir='storage/gallery', catalog_dir='storage/catalog'):
+    def __init__(self, image_size=160, model_device='cuda',  pretrained='casia-webface', faiss_index_type='Flat', gallery_dir='storage/gallery', catalog_dir='storage/catalog'):
         
         # Initialize the preprocessing and embedding components
         self.preprocessing = processing.Preprocessing(image_size=image_size)
-        self.embedding_model = embedding.Embedding(device=model_device)
+        self.embedding_model = embedding.Embedding(pretrained = pretrained, device=model_device)
         self.faiss_index = FaissIndex(index_type=faiss_index_type)
         self.gallery_dir = gallery_dir
         self.catalog_dir = catalog_dir
@@ -81,12 +82,13 @@ class Pipeline:
         
         return search_results
 
-from PIL import Image
+# from PIL import Image
 
-image_path = "storage/probe/Alan_Ball/Alan_Ball_0002.jpg"
-probe_image = Image.open(image_path)
+# image_path = "simclr_resources/probe/Abdullah/Abdullah_0002.jpg"
+# probe_image = Image.open(image_path)
 
-pline = Pipeline(image_size=160, model_device='cuda')
-pline._precompute()
-pline._save_embeddings()
-import pdb; pdb.set_trace()
+# pline = Pipeline(image_size=160, model_device='cuda')
+# pline._precompute()
+# pline._save_embeddings()
+# pline.search_gallery(probe_image)
+# import pdb; pdb.set_trace()
