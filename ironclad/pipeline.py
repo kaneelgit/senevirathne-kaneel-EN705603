@@ -39,12 +39,12 @@ class Pipeline:
                         # Compute embedding
                         embedding = self._encode(image)
                     
-                        # Add the embedding and associated metadata (file path and person name) to the FAISS index
-                        person_name = os.path.basename(root)  # Assuming the directory name is the person's name
+                        # Add the embedding and associated metadata 
+                        person_name = os.path.basename(root)  
                         metadata = {"name": person_name, "image_filename": file}
                         
                         # Add embedding to FAISS index
-                        embedding = np.expand_dims(embedding, axis=0)  # Add batch dimension to the embedding
+                        embedding = np.expand_dims(embedding, axis=0)  
                         self.faiss_index.add_embeddings(embedding, metadata=metadata)
                     except:
                         pass
@@ -87,7 +87,7 @@ class Pipeline:
 # image_path = "simclr_resources/probe/Abdullah/Abdullah_0002.jpg"
 # probe_image = Image.open(image_path)
 
-# pline = Pipeline(image_size=160, model_device='cuda')
+# pline = Pipeline(image_size=160, model_device='cuda', pretrained='vggface2', gallery_dir='storage/gallery', catalog_dir='storage/catalog_vgg')
 # pline._precompute()
 # pline._save_embeddings()
 # pline.search_gallery(probe_image)
