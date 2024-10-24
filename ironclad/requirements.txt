@@ -3,3 +3,6 @@ torchvision
 facenet-pytorch
 Pillow
 faiss-cpu
+flask
+numpy
+pandas

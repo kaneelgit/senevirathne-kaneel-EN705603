@@ -1,0 +1,37 @@
+[
+    {
+        "timepoint": "2024-10-24 16:58:02",
+        "k": 10,
+        "names": [
+            "Aaron Sorkin",
+            "Anibal Ibarra",
+            "Janet Thorpe",
+            "David Heymann",
+            "William Ford Jr",
+            "David Nalbandian",
+            "Tom Cruise",
+            "Michael Douglas",
+            "Tom Cruise",
+            "Peter Bacanovic"
+        ]
+    },
+    {
+        "timepoint": "2024-10-24 16:58:17",
+        "k": 2,
+        "names": [
+            "Aaron Sorkin",
+            "Anibal Ibarra"
+        ]
+    },
+    {
+        "timepoint": "2024-10-24 16:58:24",
+        "k": 5,
+        "names": [
+            "Aaron Sorkin",
+            "Anibal Ibarra",
+            "Janet Thorpe",
+            "David Heymann",
+            "William Ford Jr"
+        ]
+    }
+]
