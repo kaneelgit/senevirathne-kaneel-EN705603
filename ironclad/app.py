@@ -34,7 +34,7 @@ def identify():
     findexvgg = index.FaissIndex(faiss_index_type='Flat',  metric='minkowski')
     findexvgg.load(faiss_path = 'storage/catalog_vgg/faiss.index', metadata_path = 'storage/catalog_vgg/metadata.pkl')
 
-    pline2 = pipeline.Pipeline(image_size=160, model_device='cuda', pretrained='vggface2')
+    pline2 = pipeline.Pipeline(image_size=160, model_device = 'cpu', pretrained='vggface2')
     pline2.faiss_index = findexvgg
 
     k = request.form.get('k')
@@ -79,6 +79,46 @@ def history():
 
     # Return the logs as a plain text response
     return Response(formatted_logs, mimetype='text/plain')
+
+@app.route('/add', methods=['POST'])
+def add():
+    #load the ucrrent index
+    file = request.files['file']
+    img = Image.open(file)
+
+    #save file in the catelog
+    filename = file.filename
+    name = filename.split('.')[0]
+    folder_path = os.path.join('storage', 'gallery', name)
+
+    #if dir doesn't exist make dir
+    os.makedirs(folder_path, exist_ok = True)
+
+    #define th efull path to save the file
+    file_path = os.path.join(folder_path, filename)
+
+    #save image
+    img.save(file_path)    
+
+    findexvgg = index.FaissIndex(faiss_index_type='Flat',  metric='minkowski')
+    findexvgg.load(faiss_path = 'storage/catalog_vgg/faiss.index', metadata_path = 'storage/catalog_vgg/metadata.pkl')
+    pline2 = pipeline.Pipeline(image_size=160, model_device = 'cpu', pretrained='vggface2')
+    pline2.faiss_index = findexvgg
+
+    # Compute embedding
+    embedding = pline2._encode(img)
+    embedding = np.expand_dims(embedding, axis=0) 
+
+    #metadata
+    metadata = {"name": name, "image_filename": filename}
+
+    #add embeddingto index
+    pline2.faiss_index.add_embeddings(embedding, metadata=metadata)
+
+    #save embedding
+    pline2._save_embeddings('storage/catalog_vgg/faiss.index', 'storage/catalog_vgg/metadata.pkl')
+    print('Added new person to the gallery and updated the index.')
+    return 'Added new person to the gallery and updated the index.\n'
 
 if __name__ == '__main__':
     app.run(debug = True, host='0.0.0.0', port=5000)
