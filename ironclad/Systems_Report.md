@@ -60,7 +60,7 @@ The choice of distance metric is fundamental in determining how similar embeddin
 
 Through empirical testing, I found that the Minkowski distance metric provided the best balance between accuracy and efficiency in Ironclad's use case for the vggface2 model embeddings, outperforming other metrics in terms of retrieval precision while maintaining acceptable latency levels. This choice directly impacts user experience, as a reliable distance metric reduces retrieval errors and enhances the relevance of search results. Selecting Minkowski as the standard metric ensures that Ironclad meets high accuracy standards in real-time searches.
 
-### Index Type for FAISS Implementation ###
+### Flexible FAISS Index Type ###
 
 Ironclad’s FAISS index is crucial for the efficient storage and retrieval of embeddings. The objective was to select an index type that balances retrieval speed with memory usage, particularly given the system’s need to handle large datasets in real time. I evaluated several FAISS index types, including IVF, Flat, IVFPQ, and HNSW, examining their performance regarding retrieval time and memory requirements.
 
