@@ -1,4 +1,4 @@
-# System Report of IronClad visual search system
+# System Report of IronClad Visual Search System
 
 ## System Design
 
