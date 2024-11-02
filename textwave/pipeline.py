@@ -2,7 +2,7 @@ from modules.extraction import preprocessing
 import os
 from modules.extraction import embedding
 
-def preprocess_corpus(corpus_directory, chunking_stratergy, fixed_length = None, overlap_size = 2):
+def preprocess_corpus(corpus_directory, chunking_stratergy, fixed_length = None, overlap_size = 2, faiss_index = False):
 
     #initialize preprocessing module
     pp = preprocessing.DocumentProcessing()
@@ -27,7 +27,12 @@ def preprocess_corpus(corpus_directory, chunking_stratergy, fixed_length = None,
     embeddings = []
     for chunk in chunks:
         emb = embedding_model.encode(chunk)
+        if faiss_index:
+            faiss_index.add_embeddings(emb, metadata = chunk)
         embeddings.append(emb)
+
+    if faiss_index:
+        faiss_index.save("storage/catalog/faiss.index", "storage/catalog/metadata.pkl")
 
     return chunks, embeddings
 
