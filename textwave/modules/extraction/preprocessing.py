@@ -76,12 +76,24 @@ class DocumentProcessing:
         # Create chunks of the specified number of sentences
         chunks = [' '.join(sentences[i:i + overlap_size]) for i in range(0, len(sentences), overlap_size)]
         return chunks
+    
+    def fixed_length_chunking(self, document_filename, fixed_length = 2):
 
+        text = self.__read_text_file(document_filename)
+        
+        # Preprocessing
+        text = self.trim_white_space(text)
 
-if __name__ == "__main__":
-    processing = DocumentProcessing()
+        #fixed length chunking
+        chunks = []
 
-    # Example to split documents into chunks
-    chunks = processing.split_document("storage/corpus/S08_set3_a1.txt.clean", overlap_size=3)
-    for idx, chunk in enumerate(chunks):
-        print(idx, chunk)
+        return chunks
+    
+
+# if __name__ == "__main__":
+#     processing = DocumentProcessing()
+
+#     # Example to split documents into chunks
+#     chunks = processing.sentence_chunking("storage/corpus/S08_set3_a1.txt.clean", overlap_size=3)
+#     for idx, chunk in enumerate(chunks):
+#         print(idx, chunk)
