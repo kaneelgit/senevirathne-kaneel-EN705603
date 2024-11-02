@@ -1,4 +1,5 @@
 from sentence_transformers import SentenceTransformer
+import torch
 
 class Embedding:
     """
@@ -26,6 +27,9 @@ class Embedding:
         """
         self.model = SentenceTransformer(model_name)
 
+        if torch.cuda.is_available():
+            self.model = self.model.to('cuda')
+
     def encode(self, sentence):
         """
         Encodes the given sentence into an embedding.
@@ -40,7 +44,8 @@ class Embedding:
         np.ndarray
             The embedding of the given sentence.
         """
-        return self.model.encode(sentence)
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        return self.model.encode(sentence, device = device)
     
     def decode(self, sentence):
         """

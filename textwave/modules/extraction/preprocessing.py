@@ -77,15 +77,18 @@ class DocumentProcessing:
         chunks = [' '.join(sentences[i:i + overlap_size]) for i in range(0, len(sentences), overlap_size)]
         return chunks
     
-    def fixed_length_chunking(self, document_filename, fixed_length = 2):
+    def fixed_length_chunking(self, document_filename, fixed_length = 2, overlap_size = 1):
 
         text = self.__read_text_file(document_filename)
         
         # Preprocessing
         text = self.trim_white_space(text)
 
-        #fixed length chunking
-        chunks = []
+        # Split documents into sentence chunks
+        # sentences = nltk.sent_tokenize(text)
+
+        # Create fixed-length chunks
+        chunks = [text[i:i + fixed_length] for i in range(0, len(text), overlap_size)]
 
         return chunks
     
@@ -94,6 +97,6 @@ class DocumentProcessing:
 #     processing = DocumentProcessing()
 
 #     # Example to split documents into chunks
-#     chunks = processing.sentence_chunking("storage/corpus/S08_set3_a1.txt.clean", overlap_size=3)
+#     chunks = processing.fixed_length_chunking("storage/corpus/S08_set3_a1.txt.clean", fixed_length = 50, overlap_size = 3)
 #     for idx, chunk in enumerate(chunks):
 #         print(idx, chunk)

@@ -15,13 +15,21 @@ def preprocess_corpus(corpus_directory, chunking_stratergy, fixed_length = None,
     embedding_model_name = 'all-MiniLM-L6-v2'
     embedding_model = embedding.Embedding(embedding_model_name)
     
-    if chunking_stratergy == 'sentence':
-
-        for dir in file_dirs:
+    for dir in file_dirs:
+        if chunking_stratergy == 'sentence':
             chunks = pp.sentence_chunking(dir, overlap_size=overlap_size)
-            for chunk in chunks:
-                sentence_embedding = embedding_model.encode(chunk)
-                print(sentence_embedding)
-                
-preprocess_corpus('storage/corpus', 'sentence')
+        elif chunking_stratergy == 'fixed-length':
+            chunks = pp.fixed_length_chunking(dir, fixed_length)
+        else:
+            chunks = []
+
+    #embeddings
+    embeddings = []
+    for chunk in chunks:
+        emb = embedding_model.encode(chunk)
+        embeddings.append(emb)
+
+    return chunks, embeddings
+
+
 
