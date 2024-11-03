@@ -65,8 +65,8 @@ class QA_Generator:
 
 if __name__ == "__main__":
     generator_model = "mistral-large-latest"
-    generator = QA_Generator(api_key = os.environ["MISTRAL_API_KEY"], temperature=0.2, generator_model=generator_model)
-
+    # generator = QA_Generator(api_key = os.environ["MISTRAL_API_KEY"], temperature=0.2, generator_model=generator_model)
+    generator = QA_Generator(api_key = "LCpHJsZkSLjehtiu421RcQy6AoxPk2wj", temperature=0.2, generator_model=generator_model)
     # This is an example from SQuAD dataset. 
     # https://rajpurkar.github.io/SQuAD-explorer/
     # I also injected FALSE information here
