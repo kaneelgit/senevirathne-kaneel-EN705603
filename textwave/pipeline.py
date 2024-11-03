@@ -35,9 +35,8 @@ def preprocess_corpus(corpus_directory, chunking_stratergy, fixed_length = None,
         index_dir = index_dir if index_dir else "storage/catalog/faiss.index"
         metadata_dir = metadata_dir if metadata_dir else "storage/catalog/metadata.pkl"   
         faiss_index.save(index_dir, metadata_dir)
-    
-    import pdb; pdb.set_trace()
+
     return chunks, embeddings
 
-faiss_index_bf = FaissIndex(index_type='brute_force', nlist=50)
-preprocess_corpus('storage/corpus_test', 'fixed-length', fixed_length = 50, overlap_size = 3, faiss_index = faiss_index_bf)
+# faiss_index_bf = FaissIndex(index_type='brute_force', nlist=50)
+# preprocess_corpus('storage/corpus_test', 'fixed-length', fixed_length = 50, overlap_size = 3, faiss_index = faiss_index_bf)
