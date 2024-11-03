@@ -64,15 +64,15 @@ class Embedding:
         return self.model.decode(sentence)
 
 
-if __name__ == "__main__":
-    # You can try different sentence encoders here: 
-    # https://sbert.net/docs/sentence_transformer/pretrained_models.html
+# if __name__ == "__main__":
+#     # You can try different sentence encoders here: 
+#     # https://sbert.net/docs/sentence_transformer/pretrained_models.html
     
-    embedding_model_name = 'all-MiniLM-L6-v2'
-    embedding_model = Embedding(embedding_model_name)
+#     embedding_model_name = 'all-MiniLM-L6-v2'
+#     embedding_model = Embedding(embedding_model_name)
 
-    sentence = "Who suggested Lincoln grow a beard?"
-    sentence_embedding = embedding_model.encode(sentence)
+#     sentence = "Who suggested Lincoln grow a beard?"
+#     sentence_embedding = embedding_model.encode(sentence)
 
-    print(sentence_embedding)
-    print(sentence_embedding.shape)
+#     print(sentence_embedding)
+#     print(sentence_embedding.shape)

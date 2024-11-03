@@ -147,7 +147,8 @@ if __name__ == "__main__":
     faiss_index_bf.add_embeddings(doc_embeddings, metadata=context)
     faiss_index_bf = FaissSearch(faiss_index_bf, metric='euclidean')
 
-
+    import pdb; pdb.set_trace()
+    
     print("\n\n")
     # FIRST EXAMPLE
     query = "Who followed Vince Pulido to walk on the moon?"
