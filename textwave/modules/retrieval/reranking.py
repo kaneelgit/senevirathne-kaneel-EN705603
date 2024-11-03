@@ -37,6 +37,10 @@ class Reranker:
             return self.tfidf_rerank(query, context, distance_metric=distance_metric)
         elif self.type == "hybrid":
             return self.hybrid_rerank(query, context, distance_metric=distance_metric)
+        elif self.type == "hybrid2":
+            return self.sequential_rerank(query, context, distance_metric=distance_metric)
+        elif self.type == "tfidf-corpus":
+            return self.tfidf_corpus_rerank(query, context, distance_metric=distance_metric)
 
     def cross_encoder_rerank(self, query, context):
         """
@@ -112,6 +116,34 @@ class Reranker:
         ranked_indices = [idx for _, idx, _ in combined_scores]
         scores = [score for _, _, score in combined_scores]
 
+        return ranked_documents, ranked_indices, scores
+    
+    def sequential_rerank(self, query, context, distance_metric="cosine"):
+        """
+        TF-IDF and then cross-encoder scores for hybrid reranking.
+        """
+        tfidf_ranked_docs, tfidf_indices, _ = self.tfidf_rerank(query, context, distance_metric)
+        
+        top_docs = [tfidf_ranked_docs[i] for i in range(min(10, len(tfidf_ranked_docs)))]
+        cross_encoder_ranked_docs, cross_indices, cross_scores = self.cross_encoder_rerank(query, top_docs)
+
+        final_indices = [tfidf_indices[cross_indices[i]] for i in range(len(cross_indices))]
+        return cross_encoder_ranked_docs, final_indices, cross_scores
+
+    def tfidf_corpus_rerank(self, query, corpus, distance_metric="cosine"):
+        """
+        TF-IDF only on the full chunked corpus.
+        """
+        vectorizer = TfidfVectorizer()
+        corpus_vectors = vectorizer.fit_transform(corpus)
+        query_vector = vectorizer.transform([query])
+        
+        distances = pairwise_distances(query_vector, corpus_vectors, metric=distance_metric).flatten()
+        
+        ranked_indices = distances.argsort()
+        ranked_documents = [corpus[idx] for idx in ranked_indices]
+        scores = [1 - distances[idx] for idx in ranked_indices]
+        
         return ranked_documents, ranked_indices, scores
 
     

@@ -6,3 +6,4 @@ ironclad/simclr_resources/
 textwave/storage/
 textwave/qa_resources
 textwave/text_env
+textwave/api_key.json
