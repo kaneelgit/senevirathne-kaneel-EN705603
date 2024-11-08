@@ -21,7 +21,6 @@ class Pipeline:
         faiss_index.load(faiss_path = faiss_path, metadata_path = metadata_path)
         self.faiss_index_bf = FaissSearch(faiss_index, metric=metric)
 
-
     def _encode(self, query):
         """
         Embeds the given query using the embedding model initialized by the class
@@ -31,7 +30,9 @@ class Pipeline:
         return query_embedding
 
     def search_neighbors(self, query_embedding, k = 10):
-
+        """
+        search k nearest neighbours 
+        """
         distances_ivf, indices_ivf, metadata_ivf = self.faiss_index_bf.search(query_embedding, k=k)
         return distances_ivf, metadata_ivf
         
