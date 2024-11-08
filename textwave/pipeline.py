@@ -4,11 +4,14 @@ from modules.extraction import embedding
 from modules.retrieval.indexing import FaissIndex
 from modules.retrieval.search import FaissSearch
 from modules.retrieval import indexing
+from modules.generator import question_answering
+from modules.retrieval.reranking import Reranker
 
 class Pipeline:
 
     def __init__(self, embedding_model_name = 'all-MiniLM-L6-v2', faiss_path = "../storage/catalog/faiss.index",\
-                 metadata_path = "../storage/catalog/metadata.pkl", metric='euclidean'):
+                 metadata_path = "../storage/catalog/metadata.pkl", metric='euclidean', generator_model = "mistral-large-latest", \
+                    api_key_path = '../api_key.json', temperature = 0.2):
 
         #initialize preprocessing module
         self.pp = preprocessing.DocumentProcessing()
@@ -20,6 +23,16 @@ class Pipeline:
         faiss_index = indexing.FaissIndex()
         faiss_index.load(faiss_path = faiss_path, metadata_path = metadata_path)
         self.faiss_index_bf = FaissSearch(faiss_index, metric=metric)
+
+        #generator model
+        self.generator_model = generator_model
+
+        #get api key
+        with open(api_key_path, 'r') as file:
+            self.api_key = file.readline().strip()
+
+        #initialize generator
+        self.generator = question_answering.QA_Generator(api_key = self.api_key, temperature=temperature, generator_model=generator_model)
 
     def _encode(self, query):
         """
@@ -35,6 +48,19 @@ class Pipeline:
         """
         distances_ivf, indices_ivf, metadata_ivf = self.faiss_index_bf.search(query_embedding, k=k)
         return distances_ivf, metadata_ivf
+    
+    def generate_answer(self, query, context, rerank = True, rerank_type = "hibrid"):
+
+        #rerank if rerank is true
+        if rerank:
+            reranker = Reranker(type=rerank_type)
+            ranked_documents, ranked_indices, scores = reranker.rerank(query, context=context)
+            context = ranked_documents
+
+        #generate answer
+        answer = self.generator.generate_answer(query, context)
+
+        return query, answer, context
         
     def preprocess_corpus(self, corpus_directory, chunking_stratergy, fixed_length = None, overlap_size = 2, faiss_index = False, index_dir = None, metadata_dir = None):
 
