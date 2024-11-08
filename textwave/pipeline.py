@@ -49,7 +49,7 @@ class Pipeline:
         distances_ivf, indices_ivf, metadata_ivf = self.faiss_index_bf.search(query_embedding, k=k)
         return distances_ivf, metadata_ivf
     
-    def generate_answer(self, query, context, rerank = True, rerank_type = "hibrid"):
+    def generate_answer(self, query, context, rerank = True, rerank_type = "hybrid"):
 
         #rerank if rerank is true
         if rerank:
