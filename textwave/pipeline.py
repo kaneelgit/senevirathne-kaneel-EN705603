@@ -68,27 +68,32 @@ class Pipeline:
         files = os.listdir(corpus_directory)
         file_dirs = [os.path.join(corpus_directory, f) for f in files]
         
+        #get chunks
+        chunks_all = []
         for dir in file_dirs:
             if chunking_stratergy == 'sentence':
                 chunks = self.pp.sentence_chunking(dir, overlap_size=overlap_size)
+                chunks_all.extend(chunks)
             elif chunking_stratergy == 'fixed-length':
                 chunks = self.pp.fixed_length_chunking(dir, fixed_length)
+                chunks_all.extend(chunks)
             else:
                 chunks = []
+                chunks_all.extend(chunks)
         
         #embedding encode embeddings
-        embeddings = self.embedding_model.encode(chunks)
+        embeddings = self.embedding_model.encode(chunks_all)
 
         #if faiss index is given add data and save them
         if faiss_index:
-            faiss_index.add_embeddings(embeddings, metadata = chunks)
+            faiss_index.add_embeddings(embeddings, metadata = chunks_all)
             
             #get dir to save faiss index.
             index_dir = index_dir if index_dir else "storage/catalog/faiss.index"
             metadata_dir = metadata_dir if metadata_dir else "storage/catalog/metadata.pkl"   
             faiss_index.save(index_dir, metadata_dir)
 
-        return chunks, embeddings
+        return chunks_all, embeddings
 
 
 
