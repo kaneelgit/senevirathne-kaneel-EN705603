@@ -49,3 +49,23 @@ A sample JSON file, such as sample_query_file.json, should look like this:
 }
 ```
 Replace "xxxxxxxxxxxxxxxxxxxxxx" with your actual API key and save this file in the same directory as your terminal, then execute the command to test the question-answering system.
+
+Example response. 
+```markdown
+query: Who is Abraham Lincoln?
+answer: Abraham Lincoln was the sixteenth President of the United States, serving from March 4, 1861 until his assassination on April 15, 1865.
+```
+
+### Add documents to the corpus ###
+
+To update the corpus with new documents, use the /update_corpus endpoint. This request uploads a file containing the new data.
+
+Here’s how to do it with curl:
+```bash
+curl -X POST http://127.0.0.1:3001/update_corpus -F "file=@test.clean"
+```
+If the update is successful, the system will return the message:
+```markdown
+Updated corpus.
+```
+Replace ```test.clean``` with the path to your own file if different.
