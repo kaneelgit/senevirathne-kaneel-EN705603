@@ -1,0 +1,10 @@
+Question,Level,Temperature,Answer
+Was Abraham Lincoln the sixteenth President of the United States?,Easy,0.05,"Yes, Abraham Lincoln was the sixteenth President of the United States."
+When did Lincoln begin his political career?,Medium,0.05,"Lincoln began his political career in 1832, at age 23, with an unsuccessful campaign for the Illinois General Assembly, as a member of the Whig Party."
+When did the Gettysburg address argue that America was born?,Hard,0.05,The Gettysburg Address argued that America was born in 1776.
+Was Abraham Lincoln the sixteenth President of the United States?,Easy,0.2,"Yes, Abraham Lincoln was the sixteenth President of the United States."
+When did Lincoln begin his political career?,Medium,0.2,"Lincoln began his political career in 1832, at age 23, with an unsuccessful campaign for the Illinois General Assembly, as a member of the Whig Party."
+When did the Gettysburg address argue that America was born?,Hard,0.2,The Gettysburg Address argued that America was born in 1776.
+Was Abraham Lincoln the sixteenth President of the United States?,Easy,0.8,"Yes, Abraham Lincoln was the sixteenth President of the United States."
+When did Lincoln begin his political career?,Medium,0.8,"Lincoln began his political career in 1832, at age 23, with an unsuccessful campaign for the Illinois General Assembly, as a member of the Whig Party."
+When did the Gettysburg address argue that America was born?,Hard,0.8,The Gettysburg Address argued that America was born in 1776.

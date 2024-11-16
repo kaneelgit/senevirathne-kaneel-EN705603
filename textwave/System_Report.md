@@ -76,6 +76,14 @@ To select the best model out of "mistral-large-latest" and "mistral-small-latest
 
 ![alt text](image2.png)
 
+
+### Generation Service: Choosing a temperature of 0.2 ###
+
+![alt text](temperature-analysis.png)
+
+A testing different temperatures and manually going through answers gives the following sentiment. A temperature setting of 0.2 seems to be ideal for a company document retrieval system because it strikes a balance between predictability and flexibility, making responses clear and consistent. At this low temperature, the model provides deterministic answers, ensuring that the information retrieved is accurate and directly relevant to the query, without introducing unnecessary or off-topic details. This minimizes the risk of overfitting or bias, maintaining a neutral tone in the responses. Furthermore, the low temperature reduces the chance of creative or overly specific content that might diverge from the factual context, which is crucial in professional settings. Overall, 0.2 offers a good balance, providing precise, neutral, and factual information without sacrificing slight variations in phrasing, making it an excellent choice for a document retrieval system.
+
+
 ### Choosing docker as the interface service ###
 
 Docker was selected as the interface module due to its ability to provide a containerized environment for the TextWave system. This ensures scalability, modularity, and ease of deployment across different environments. By using Docker, the system can support regular updates to the corpus by mounting new documents, without requiring downtime or manual reconfiguration. Additionally, Docker simplifies scaling the Flask API for handling increased query volumes. It also lays the groundwork for creating a web app, allowing users to input queries interactively. This combination of flexibility, scalability, and maintainability makes Docker an ideal choice for the TextWave system. Using curl to send a JSON file containing the API, k (nearest neighbors), and the query to the Flask endpoint ensures a lightweight and efficient query submission method. This setup allows for easy integration with other systems or pipelines. Additionally, it supports mounting updated corpo documents frequently, keeping the system dynamic and adaptable. This method is particularly beneficial for scaling, as Docker’s containerization ensures that multiple instances of the service can be spun up to handle high query loads. Finally, this approach simplifies extending the system into a web app, where users can input queries through a graphical interface, enhancing user accessibility. Furthermore, docker enables to run this in serverless containers such as Google Cloud Run which makes is more financially efficient for a in house company information retrieval system. 
