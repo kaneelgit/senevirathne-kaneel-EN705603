@@ -26,7 +26,32 @@ The interface module is a containerized application that provides two endpoints 
 
 ### Offline Metrics ###
 
+To evaluate the performance of the TextWave system, we use several offline metrics to ensure it 
+retrieves accurate and relevant information for generating answers. One key metric is **exact match**, 
+which checks if the content retrieved from the FAISS index perfectly matches the correct information 
+in our test data. Another metric is **transformer matching**, which measures how similar the retrieved 
+content is to the correct answers by comparing their meanings using a transformer model. This helps us 
+understand whether the system is retrieving semantically relevant information, even if the words do not 
+match exactly. Additionally, **manual feedback checking** is a critical metric: the system saves queries 
+and answers, and expert human reviewers grade the results based on their accuracy and quality. 
+This provides deeper insights into how well the system performs in real-world scenarios and helps 
+identify areas for improvement. Together, these metrics ensure that the system consistently retrieves 
+and generates high-quality responses.
+
 ### Online Metrics ###
 
+To monitor and improve the real-time performance of the TextWave system, we use several online metrics that evaluate its responsiveness and 
+user satisfaction. One key metric is response time, which measures the time taken to process a query and generate an answer. A fast response 
+time is essential to ensure a smooth user experience. Another important metric is retrieval efficiency, which tracks how quickly the system 
+searches the FAISS index and fetches the most relevant results, helping us assess the performance of the retrieval module under different query 
+loads.
+
+We also monitor generation latency, which measures the time taken by the generator module to produce an answer using the MISTRAL API. 
+This helps us identify potential bottlenecks in the answer generation step. Additionally, user interaction metrics such as click-through 
+rates (whether users act on the provided answers) and query abandonment rates (whether users leave without waiting for a response) provide 
+insights into how well the system meets user expectations in real-time scenarios. Combining these metrics helps ensure the system remains 
+efficient, accurate, and user-friendly during actual usage.
+
 ## System Parameters and Configurations
+
 
