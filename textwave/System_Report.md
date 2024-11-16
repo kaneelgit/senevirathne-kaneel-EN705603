@@ -58,14 +58,6 @@ efficient, accurate, and user-friendly during actual usage.
 
 In order to choose the best reranking service for the design, I checked different level queries (easy, medium, hard) and analyzed the top 5 reranked documents. 
 
-The three questions used for this analysis are:
-
-Easy - Was Abraham Lincoln the sixteenth President of the United States?
-
-Medium - When did Lincoln begin his political career?
-
-Hard - When did the Gettysburg address argue that America was born?
-
 Below is a comparison between the Hybrid and TFIDF reranking methods. Here you can see the question, its level and the top context reranked by each method. Then human feedback is given to see the relevency of the context to see if its relevent. Focusing on the image you can see that the Hybrid method has reranked the top context for the hard question better while the TFIDF method has reranked a context that mentions the "Gettysburg Address" however, has failed to identify the correct document that answers the question. 
 
 ![alt text](image.png)
