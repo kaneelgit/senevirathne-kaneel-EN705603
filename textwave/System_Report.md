@@ -52,6 +52,20 @@ rates (whether users act on the provided answers) and query abandonment rates (w
 insights into how well the system meets user expectations in real-time scenarios. Combining these metrics helps ensure the system remains 
 efficient, accurate, and user-friendly during actual usage.
 
-## System Parameters and Configurations
+## Analysis of Designing Parameters and Configurations
+
+### Retrieval Service: Choosing 'hybrid' reranker method as the reranking service ###
+
+In order to choose the best reranking service for the design, I checked different level queries (easy, medium, hard) and analyzed the top 5 reranked documents. 
+
+The three questions used for this analysis are:
+
+Easy - Was Abraham Lincoln the sixteenth President of the United States?
+Medium - When did Lincoln begin his political career?
+Hard - When did the Gettysburg address argue that America was born?
+
+![alt text](image.png)
+
+The analysis highlights the strengths and limitations of the two retrieval strategies—TF-IDF and the hybrid approach utilizing cross-encoders. The TF-IDF method excels in keyword-based retrieval, effectively identifying documents with high contextual relevance for straightforward queries like Lincoln's presidency. Its ability to prioritize documents with direct answers is commendable; however, it may falter with more nuanced queries, where it occasionally elevates tangentially related documents over precise matches, as seen with the Gettysburg Address. On the other hand, the hybrid reranking strategy demonstrates a more sophisticated approach to document relevance by integrating the strengths of both TF-IDF and cross-encoders. This strategy successfully prioritizes documents that align closely with the query intent, effectively re-ranking based on semantic understanding. While it showcases improved precision, particularly for straightforward and moderately complex queries, the strategy still encounters challenges with multifaceted historical interpretations, where relevance may decrease for lower-ranked documents. Given these observations, the hybrid reranking method is recommended for our work. It not only retains the efficiency of TF-IDF in narrowing down relevant documents but also leverages the nuanced understanding provided by cross-encoders for more accurate semantic retrieval. This combination allows for a robust approach that can handle both simple and complex queries, ensuring high-quality results across various levels of difficulty. 
 
 
