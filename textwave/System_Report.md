@@ -67,6 +67,15 @@ accurate semantic retrieval.
 
 *For more details on the analysis go to notebooks/reranker_analysis.ipynb*
 
+### Extraction Service: Use of chunking methods ###
+
+
+### Generation Service: Choosing "mistral-large-latest" as the generator model ###
+
+To select the best model out of "mistral-large-latest" and "mistral-small-latest" a time efficiency test was conducted. Both models were tested on 5 questions and a context to measure the time elapsed to generate the answer. This was done to see if the "large" model answer generation time is longer than the "small" model. The analysis showed that the times were not significantly different in order to choose the "smaller" model. Thus the "mistral-large-latest" model was chosen because it is the top reasoning model available. 
+
+![alt text](image2.png)
+
 ### Choosing docker as the interface service ###
 
 Docker was selected as the interface module due to its ability to provide a containerized environment for the TextWave system. This ensures scalability, modularity, and ease of deployment across different environments. By using Docker, the system can support regular updates to the corpus by mounting new documents, without requiring downtime or manual reconfiguration. Additionally, Docker simplifies scaling the Flask API for handling increased query volumes. It also lays the groundwork for creating a web app, allowing users to input queries interactively. This combination of flexibility, scalability, and maintainability makes Docker an ideal choice for the TextWave system. Using curl to send a JSON file containing the API, k (nearest neighbors), and the query to the Flask endpoint ensures a lightweight and efficient query submission method. This setup allows for easy integration with other systems or pipelines. Additionally, it supports mounting updated corpo documents frequently, keeping the system dynamic and adaptable. This method is particularly beneficial for scaling, as Docker’s containerization ensures that multiple instances of the service can be spun up to handle high query loads. Finally, this approach simplifies extending the system into a web app, where users can input queries through a graphical interface, enhancing user accessibility. Furthermore, docker enables to run this in serverless containers such as Google Cloud Run which makes is more financially efficient for a in house company information retrieval system. 
