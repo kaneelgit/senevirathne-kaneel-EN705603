@@ -61,11 +61,18 @@ In order to choose the best reranking service for the design, I checked differen
 The three questions used for this analysis are:
 
 Easy - Was Abraham Lincoln the sixteenth President of the United States?
+
 Medium - When did Lincoln begin his political career?
+
 Hard - When did the Gettysburg address argue that America was born?
+
+Below is a comparison between the Hybrid and TFIDF reranking methods. Here you can see the question, its level and the top context reranked by each method. Then human feedback is given to see the relevency of the context to see if its relevent. Focusing on the image you can see that the Hybrid method has reranked the top context for the hard question better while the TFIDF method has reranked a context that mentions the "Gettysburg Address" however, has failed to identify the correct document that answers the question. 
 
 ![alt text](image.png)
 
-The analysis highlights the strengths and limitations of the two retrieval strategies—TF-IDF and the hybrid approach utilizing cross-encoders. The TF-IDF method excels in keyword-based retrieval, effectively identifying documents with high contextual relevance for straightforward queries like Lincoln's presidency. Its ability to prioritize documents with direct answers is commendable; however, it may falter with more nuanced queries, where it occasionally elevates tangentially related documents over precise matches, as seen with the Gettysburg Address. On the other hand, the hybrid reranking strategy demonstrates a more sophisticated approach to document relevance by integrating the strengths of both TF-IDF and cross-encoders. This strategy successfully prioritizes documents that align closely with the query intent, effectively re-ranking based on semantic understanding. While it showcases improved precision, particularly for straightforward and moderately complex queries, the strategy still encounters challenges with multifaceted historical interpretations, where relevance may decrease for lower-ranked documents. Given these observations, the hybrid reranking method is recommended for our work. It not only retains the efficiency of TF-IDF in narrowing down relevant documents but also leverages the nuanced understanding provided by cross-encoders for more accurate semantic retrieval. This combination allows for a robust approach that can handle both simple and complex queries, ensuring high-quality results across various levels of difficulty. 
+Further analysis of all the reranking methods highlights the strengths and limitations of reranking strategies—TF-IDF and the hybrid approach utilizing cross-encoders. The TF-IDF method excels in keyword-based retrieval, effectively identifying documents with high contextual relevance for straightforward queries like Lincoln's presidency. Its ability to prioritize documents with direct answers is commendable; however, it may falter with more nuanced queries, where it occasionally elevates tangentially related documents over precise matches, as seen with the Gettysburg Address. On the other hand, the hybrid reranking strategy demonstrates a more sophisticated approach to document relevance by integrating the strengths of both TF-IDF and cross-encoders. This strategy successfully prioritizes documents that align closely with the query intent, effectively re-ranking based on semantic understanding. While it showcases improved precision, particularly for straightforward and moderately complex queries, the strategy still encounters challenges with multifaceted historical interpretations, where relevance may decrease for lower-ranked documents. Given these observations, the hybrid reranking method is recommended for our work. It not only retains the efficiency of TF-IDF in narrowing down relevant documents but also leverages the nuanced understanding provided by cross-encoders for more 
+accurate semantic retrieval. 
+
+*For more details on the analysis go to notebooks/reranker_analysis.ipynb*
 
 
