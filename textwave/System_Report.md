@@ -69,6 +69,7 @@ accurate semantic retrieval.
 
 ### Extraction Service: Use of chunking methods ###
 
+The system utilizes a chunking strategy with a fixed length of 100 words and an overlap of 3 words between consecutive chunks. This approach ensures continuity and coherence across chunks, as the overlapping words create a seamless transition, reducing the risk of losing critical context. The fixed word length is optimized for the input size limitations of language models, ensuring efficient processing while retaining sufficient information for accurate analysis. The overlap maintains semantic flow and enhances the model's ability to generate contextually relevant queries. This design balances computational efficiency with preserving the document's meaning in the RAG-based pipeline.
 
 ### Generation Service: Choosing "mistral-large-latest" as the generator model ###
 
