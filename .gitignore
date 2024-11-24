@@ -9,3 +9,5 @@ textwave/text_env
 textwave/api_key.json
 api_key.json
 sample_query.json
+moviemate/storage/
+moviemate/myvenv/
