@@ -89,7 +89,7 @@ class CollaborativeFiltering:
             raise ValueError("Data not loaded. Call `_load_data` first.")
         predictions = self.model.test(self.validset)
         return accuracy.rmse(predictions)
-
+    
     def predict(self, user_id, item_id):
         """
         Predict the rating for a given user and item.
@@ -110,11 +110,12 @@ class CollaborativeFiltering:
 
 
 if __name__ == "__main__":
+
     # Performed GridSearch to calculate approximately optimal hyperparameters
     svd_params = {'n_factors': 200, 'n_epochs': 100, 'lr_all': 0.01, 'reg_all': 0.1}
     recommender = CollaborativeFiltering(
-        ratings_file='data/u.data',
-        metadata_file='data/u.item',
+        ratings_file='storage/u.data',
+        metadata_file='storage/u.item',
         algorithm=SVD(**svd_params)
     )
 

@@ -26,12 +26,12 @@ class Pipeline:
         if partition_type == "stratified":
              
             # Split data based on unique user IDs
-            unique_users = data['user_id'].unique()
+            unique_users = data['user'].unique()
             train_users, test_users = train_test_split(unique_users, test_size=test_size, random_state=42)
 
             # Create train and test sets based on user_id
-            train_data = data[data['user_id'].isin(train_users)]
-            test_data = data[data['user_id'].isin(test_users)]
+            train_data = data[data['user'].isin(train_users)]
+            test_data = data[data['user'].isin(test_users)]
 
             return train_data, test_data
         

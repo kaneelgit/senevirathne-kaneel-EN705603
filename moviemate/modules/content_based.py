@@ -112,7 +112,7 @@ class ContentBasedFiltering:
             np.linalg.norm(user_profile) * np.linalg.norm(item_vector)
         )
 
-    def evaluate(self, sample_size=1000):
+    def evaluate(self, sample_size=1000, sample_ratings = None):
         """
         Evaluate the model by calculating the RMSE on a sample of user-item ratings.
 
@@ -126,7 +126,10 @@ class ContentBasedFiltering:
         float
             RMSE value.
         """
-        sample_ratings = self.ratings.sample(n=sample_size, random_state=42)
+        if sample_ratings:
+            sample_ratings = sample_ratings
+        else:
+            sample_ratings = self.ratings.sample(n=sample_size, random_state=42)
 
         true_ratings = []
         predicted_ratings = []
