@@ -3,3 +3,4 @@ pyarrow
 scikit-learn
 pandas
 scikit-surprise
+numpy

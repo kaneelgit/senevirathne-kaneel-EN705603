@@ -2,13 +2,15 @@
 
 ## Description
 
+Moviemate is a movie recommendation system designed to provide personalized movie suggestions to users. Packaged with Docker for easy deployment and scalability, it offers a range of features, including the ability to add new users, update the underlying recommendation model, and generate tailored movie recommendations. 
+
 ## Table of Contents
 - Prerequisites.
 - Installation.
 - Example usage.
 
 ## Prerequisites
-This interface system uses Docker to containerize and run the application. Ensure Docker is installed on your machine before proceeding. The embedding system uses python3, transformers and mistralai. Ensure these libraries and services are installed on your machine before proceeding. The requirements.txt file is available to see what modules are needed.
+This interface system uses Docker to containerize and run the application. Ensure Docker is installed on your machine before proceeding. 
 
 ## Installation
 Follow the steps below to set up and run the application:
@@ -17,7 +19,7 @@ Follow the steps below to set up and run the application:
 ```bash
 git clone https://github.com/creating-ai-enabled-systems-fall-2024/senevirathne-kaneel.git 
 ```
-2. **Navigate to the ```textwave``` directory:**
+2. **Navigate to the ```moviemate``` directory:**
 ```bash
 cd moviemate
 ```
@@ -26,3 +28,48 @@ cd moviemate
 docker build -t <appname>:latest .
 ```
 ## Example Usage 
+
+To test the recommendation system, follow these steps:
+
+1. Start the application.
+Run the following command in your terminal to start the application:
+```bash
+docker run -p 3001:3001 -it <appname>
+```
+2. Interact with the system.
+Once the application is running, open a new terminal window and use the curl command to interact with the system's endpoints. The system allows you to:
+- Get recommendations.
+- Add new users.
+- Retrain the recommendation model.
+
+3. Get Recommendations.
+To get a recommendation you can use the following command.
+``bash
+curl
+``
+4. Add a New User
+To add a new user, prepare a JSON file with the following format:
+```
+{
+"age": 25,
+"gender": "F",
+"occupation": "other",
+"ratings": {},
+"zip code": 21201
+}
+```
+The JSON should include the user's age, gender, occupation, zip code, and ratings (if available).
+- If no ratings are available, use an empty dictionary for "ratings".
+
+Then use the add_user endpoint to add this new user to the database.
+```
+curl -X POST http://127.0.0.1:5000/add_user -H "Content-Type: application/json" -d @new_user.json
+```
+
+Once a user is added, they are assigned a unique user_id. An example of the updated database after adding a new user might look like this:
+```
+941|20|M|student|97229
+942|48|F|librarian|78209
+943|22|M|student|77841
+944|25|F|other|21201
+```

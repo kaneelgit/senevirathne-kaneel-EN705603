@@ -6,7 +6,7 @@ from surprise import Dataset, Reader, accuracy
 import os
 from datetime import datetime
 from modules.collaborative_filtering import CollaborativeFiltering  # Assuming your class is in `collaborative_filtering.py`
-
+import time
 
 app = Flask(__name__)
 
@@ -33,9 +33,38 @@ def add_user():
         zip_code = user_data.get("zip code")
         ratings = user_data.get("ratings", {})
 
-        import pdb; pdb.set_trace()
         if not (age and gender and occupation and zip_code):
             return jsonify({"error": "Invalid input. Missing age, gender, occupation, or zip code."}), 400
+        
+        #USER FILE
+        USER_FILE = "storage/u.user"
+        USER_COLUMNS = ["user id", "age", "gender", "occupation", "zip code"]
+
+         # Load existing user data
+        user_df = pd.read_csv(USER_FILE, sep='|', names=USER_COLUMNS, header=None)
+
+        # Determine the next user ID
+        new_user_id = user_df['user id'].max() + 1
+
+        # Add the new user to the dataframe
+        new_user_row = pd.DataFrame([[new_user_id, age, gender, occupation, zip_code]], columns=USER_COLUMNS)
+        user_df = pd.concat([user_df, new_user_row], ignore_index=True)
+
+        # Save the updated user data back to file
+        user_df.to_csv(USER_FILE, sep='|', index=False, header=False)
+        
+        # If ratings are provided, add them to the u.data file
+        DATA_FILE = "storage/u.new_data"
+        if ratings:
+            data_rows = []
+            for item_id, rating in ratings.items():
+                timestamp = int(time.time())  # Current Unix timestamp
+                data_rows.append(f"{new_user_id}|{item_id}|{rating}|{timestamp}")
+
+            with open(DATA_FILE, 'a') as f:
+                f.write('\n'.join(data_rows) + '\n')
+
+        import pdb; pdb.set_trace()
         
         return 200
 
