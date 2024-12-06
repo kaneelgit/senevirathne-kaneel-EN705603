@@ -45,8 +45,15 @@ Once the application is running, open a new terminal window and use the curl com
 3. Get Recommendations.
 To get a recommendation you can use the following command.
 ``bash
-curl
+curl -X GET "http://localhost:5000/recommend?user_id=<user_id>"
 ``
+Replace ``<user_id>`` with the desired user.
+
+This return the top 10 recommendations for specific user.
+```
+{"recommendations":["Raiders of the Lost Ark (1981)","Return of the Jedi (1983)","Star Wars (1977)","Titanic (1997)","Empire Strikes Back, The (1980)","Gone with the Wind (1939)","Schindler's List (1993)","Back to the Future (1985)","Lawrence of Arabia (1962)","Indiana Jones and the Last Crusade (1989)"]}
+```
+
 4. Add a New User
 To add a new user, prepare a JSON file with the following format:
 ```
@@ -58,7 +65,7 @@ To add a new user, prepare a JSON file with the following format:
 "zip code": 21201
 }
 ```
-The JSON should include the user's age, gender, occupation, zip code, and ratings (if available).
+- The JSON should include the user's age, gender, occupation, zip code, and ratings (if available).
 - If no ratings are available, use an empty dictionary for "ratings".
 
 Then use the add_user endpoint to add this new user to the database.
@@ -71,5 +78,5 @@ Once a user is added, they are assigned a unique user_id. An example of the upda
 941|20|M|student|97229
 942|48|F|librarian|78209
 943|22|M|student|77841
-944|25|F|other|21201
+944|25|F|other|21201 --> NEW ENTRY
 ```
