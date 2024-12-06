@@ -44,9 +44,9 @@ Once the application is running, open a new terminal window and use the curl com
 
 3. Get Recommendations.
 To get a recommendation you can use the following command.
-``bash
+```bash
 curl -X GET "http://localhost:5000/recommend?user_id=<user_id>"
-``
+```
 Replace ``<user_id>`` with the desired user.
 
 This return the top 10 recommendations for specific user.
