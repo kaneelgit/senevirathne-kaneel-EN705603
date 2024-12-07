@@ -34,7 +34,7 @@ To test the recommendation system, follow these steps:
 1. Start the application.
 Run the following command in your terminal to start the application:
 ```bash
-docker run -p 3001:3001 -it <appname>
+docker run -p 5000:5000 -it <appname>
 ```
 2. Interact with the system.
 Once the application is running, open a new terminal window and use the curl command to interact with the system's endpoints. The system allows you to:
