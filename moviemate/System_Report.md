@@ -17,9 +17,10 @@ The interface module provides a seamless way for users to interact with the reco
 ## Metrics Definition
 
 ### Offline Metrics ###
-
+Offline metrics are crucial for evaluating the performance of the recommendation system on historical data. Mean Reciprocal Rank (MRR) is used to measure how well the system ranks the first relevant item for users, reflecting its ability to prioritize relevance. Precision@K assesses the proportion of relevant items in the top K recommendations, while Recall@K evaluates the system’s ability to retrieve all relevant items within the top K. Mean Average Precision at K (mAP@K) provides a comprehensive measure of ranking quality by averaging precision across cutoff levels, accounting for both precision and recall. Normalized Discounted Cumulative Gain (nDCG) captures ranking quality by considering the relevance of items and their positions. Additionally, a Learning Stability Metric, used in the continuous learning section, can be used to evaluate how well the system adapts over iterations. 
 
 ### Online Metrics ###
+Online metrics are used to monitor the recommendation system's performance in real-time, reflecting user interactions and satisfaction. Precision@K is monitored to ensure the system provides relevant recommendations at the moment of interaction, while Recall@K tracks the system’s ability to display diverse relevant content during live usage. nDCG can also be observed to understand if the most relevant recommendations are positioned effectively for user engagement. MRR is also particularly useful for assessing the effectiveness of the system in surfacing highly relevant items promptly. These metrics can be monitored via cloud dashboards or logging frameworks to track performance trends and anomalies in real time. By continuously evaluating these metrics in real-time, the system can adapt to changes in user behavior and ensure a consistent, high-quality recommendation experience.
 
 
 ## Analysis of Designing Parameters and Configurations
