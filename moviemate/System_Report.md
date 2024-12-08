@@ -24,3 +24,6 @@ Online metrics are used to monitor the recommendation system's performance in re
 
 
 ## Analysis of Designing Parameters and Configurations
+
+1. Adaptive service: Usign a continous learning model.
+A continual learning model enables the system to adjust to evolving patterns over time, preventing the model from becoming outdated or less accurate due to concept drift. This is especially crucial in contexts where data distributions change over time. For example, in a movie recommendation system, user preferences shift as they gain more experience, age, and as their location changes. Therefore, it is essential to monitor this drift and retrain the model to ensure it stays aligned with these evolving user behaviors.
