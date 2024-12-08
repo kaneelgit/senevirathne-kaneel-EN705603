@@ -25,7 +25,7 @@ Online metrics are used to monitor the recommendation system's performance in re
 
 ## Analysis of Designing Parameters and Configurations
 
-1. Adaptive service: Using a temporal data split to train/retrain models.
+**1. Adaptive service: Using a temporal data split to train/retrain models.**
 
 In recommendation systems, data is naturally sequential. For instance, users’ ratings evolve over time, influenced by changing preferences, trends, and new content. Temporal partitioning ensures that the model is trained on data from the past and tested on future data, mimicking real-world deployment scenarios. The image below illustrates this point: the green (train) data is distributed earlier in time, while the yellow (test) data occurs later. This mirrors the system's operation after deployment, where the model must predict future behavior based on historical data.
 
@@ -46,13 +46,40 @@ Temporal partitioning is essential for designing a robust and reliable recommend
 While temporal partitioning is often the best choice for dynamic recommendation systems, other strategies like random splitting and user-level holdout provide alternatives. Random splitting divides the dataset arbitrarily, ensuring a balanced distribution of users and items in both the train and test sets. This approach can be useful for static datasets where temporal patterns are not relevant. However, random splits often result in data leakage, artificially inflating performance metrics while failing to reflect real-world scenarios. Another alternative is user-level holdout, where specific users are excluded entirely from training and reserved for testing. This method evaluates the model's ability to generalize to unseen users, an important aspect of recommendation systems. However, it does not account for temporal trends, making it less suitable for systems where user preferences change over time. To choose the best alternative, models trained using these approaches can be evaluated using metrics like RMSE and MAE, along with testing their stability and adaptability to future data patterns. Ultimately, the choice of strategy should align with the specific goals and dynamics of the system.
 
 
-2. Adaptive service: Usign a continous learning model.
+**2. Adaptive service: Usign a continous learning model.**
 
 A continual learning model enables the system to adjust to evolving patterns over time, preventing the model from becoming outdated or less accurate due to concept drift. This is especially crucial in contexts where data distributions change over time. For example, in a movie recommendation system, user preferences could shift as they gain more experience, age, and as their location changes. Therefore, it is essential to monitor this drift and retrain the model to ensure it stays aligned with these evolving user behaviors.
 
 
 
+**3. Personalize service: Using collaborative filtering model. ***
 
+#### Significance of Model Selection ####
 
+Selecting the right model for a recommendation system significantly impacts its accuracy, robustness, and overall user satisfaction. As shown in the RMSE comparison chart below, collaborative filtering demonstrates the lowest error on the temporal partitioned test set, compared to content-based and rule-based methods. This mimics a real world scenario, where you use an already existing user information to predict future ratings by the user. It also indicates its superior ability to capture user-item interaction patterns, which are often essential for personalized recommendations. Collaborative filtering leverages implicit or explicit feedback effectively, adapting to user preferences without requiring extensive feature engineering, unlike content-based models. Rule-based systems, while interpretable and straightforward, lack the adaptability to dynamic changes in user behavior. By choosing a collaborative filtering approach, the system prioritizes personalization, scalability, and the ability to improve over time as more user data becomes available. This decision ensures that the recommendation system remains relevant and accurate in diverse, real-world scenarios.
 
-3. 
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+#### Alternatives to collborative filtering ####
+
+Although collaborative filtering demonstrates the best performance in the current setup, other models, such as content-based filtering or hybrid approaches, may offer advantages in specific contexts. Content-based models are suitable for cold-start scenarios, where user interaction data is limited, as they rely on item attributes rather than user-item interactions. However, these models tend to overfit to user profiles, offering less diversity in recommendations. Rule-based systems, while easy to implement, are static and fail to evolve with user behavior. A hybrid approach, combining collaborative filtering and content-based filtering, could balance the strengths of both methods, addressing limitations like cold-start issues while retaining personalization.
+
+To decide on the most suitable model, various configurations can be evaluated. For example, adjusting hyperparameters in collaborative filtering, exploring different similarity metrics for content-based filtering, or integrating rule-based logic into a hybrid model. These models can be compared using metrics such as RMSE, MAE, and user satisfaction surveys, focusing on performance under specific constraints like sparse data or high user-item diversity. Ultimately, the choice should align with the system's objectives and the specific use cases it aims to address.
+
+**5. Interface Service: Using Docker as the app interface service.**
+
+#### Significance of Docker ####
+
+Docker was chosen to package the app and deploy. One of the major reasons was its ability to built a robust scalable system. Also a comprehensive response time analysis was done in order to see if the docker system would be able to provide quick recommendations in real time. The graph below shows the distribution of Docker recommendation response times, with the majority of responses occurring within the first 0.006 seconds. This fast response time is a significant advantage for a recommendation system, as it allows for quick and responsive recommendations to be provided to users.
+
+![alt text](image-4.png)
+
+Additionally, the fast response times demonstrated by Docker would enable the creation of a simple Flask app interface for user login and movie recommendations. Users would be able to receive recommendations quickly, enhancing their overall experience and satisfaction with the system.
+
+The ability to deploy Docker in a cloud environment is also a key benefit. Docker's containerization technology makes it highly portable and scalable, allowing the recommendation system to be easily deployed and scaled across cloud infrastructure as needed. This flexibility is crucial for handling fluctuating user traffic and ensuring consistent performance. 
+
+#### Alternative approaches ####
+
+Other alternatives to docker would be cloud services such as Kubernetes or Podman. In future research, we could assess systems needs and compare deployment complexity, scalability and cost effectiveness of each method to suggest alternative approaches to docker. 
