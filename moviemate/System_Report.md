@@ -48,7 +48,7 @@ While temporal partitioning is often the best choice for dynamic recommendation 
 
 **2. Adaptive service: Using a continous learning model.**
 
-#### significance of continous learning ####
+#### Significance of continous learning ####
 
 A continual learning model allows the system to adapt to evolving patterns over time, ensuring it remains accurate and relevant in the face of concept drift. This is particularly important in scenarios where data distributions shift, such as in recommendation systems. For instance, in a movie recommendation system, user preferences may change as they accumulate more experience, age, or relocate. Therefore, it is crucial to monitor these shifts and retrain the model regularly to align with the evolving behaviors of users.
 
@@ -56,6 +56,9 @@ The figure below illustrates this concept through the detection of drift in our 
 
 ![alt text](image-5.png)
 
+#### Alternatives to continous learning ####
+
+While continuous learning is a powerful approach for maintaining model relevance over time, there are alternative strategies that can be considered depending on the system's needs and constraints. One such alternative could be periodic retraining, where the model is updated at fixed intervals, such as monthly or quarterly, rather than continuously. This approach reduces the complexity and computational cost associated with constant model updates but may result in slower adaptation to sudden changes in user behavior or external factors. This approach could be optimized by doing a more qualitative analysis of the user behavior and identifying frequency of drifts. For example, we could notice a trend where users cange their behavior seasonally. Thus we could use such information to decide when to retrain our models. 
 
 **3. Personalize service: Using collaborative filtering model. ***
 
@@ -72,6 +75,12 @@ Selecting the right model for a recommendation system significantly impacts its 
 Although collaborative filtering demonstrates the best performance in the current setup, other models, such as content-based filtering or hybrid approaches, may offer advantages in specific contexts. Content-based models are suitable for cold-start scenarios, where user interaction data is limited, as they rely on item attributes rather than user-item interactions. However, these models tend to overfit to user profiles, offering less diversity in recommendations. Rule-based systems, while easy to implement, are static and fail to evolve with user behavior. A hybrid approach, combining collaborative filtering and content-based filtering, could balance the strengths of both methods, addressing limitations like cold-start issues while retaining personalization.
 
 To decide on the most suitable model, various configurations can be evaluated. For example, adjusting hyperparameters in collaborative filtering, exploring different similarity metrics for content-based filtering, or integrating rule-based logic into a hybrid model. These models can be compared using metrics such as RMSE, MAE, and user satisfaction surveys, focusing on performance under specific constraints like sparse data or high user-item diversity. Ultimately, the choice should align with the system's objectives and the specific use cases it aims to address.
+
+
+**4. **
+
+
+
 
 **5. Interface Service: Using Docker as the app interface service.**
 
