@@ -77,9 +77,15 @@ Although collaborative filtering demonstrates the best performance in the curren
 To decide on the most suitable model, various configurations can be evaluated. For example, adjusting hyperparameters in collaborative filtering, exploring different similarity metrics for content-based filtering, or integrating rule-based logic into a hybrid model. These models can be compared using metrics such as RMSE, MAE, and user satisfaction surveys, focusing on performance under specific constraints like sparse data or high user-item diversity. Ultimately, the choice should align with the system's objectives and the specific use cases it aims to address.
 
 
-**4. **
+**4. Personalize service: Balancing the diversity vs relavance scores**
 
+Balancing relevance and diversity is a critical aspect of using a diversifier in recommendation systems. The goal is to suggest highly relevant items to users while also encouraging exploration by recommending diverse items they might find interesting. Achieving this balance requires carefully selecting the weight (alpha) assigned to relevance versus diversity in the recommendation algorithm.
 
+The figure below illustrates how the total scores predicted for a user fluctuate with different alpha values. When alpha is very low, the model prioritizes diversity, leading to recommendations that may include more irrelevant items. As alpha increases, the system shifts focus toward relevance, resulting in higher scores and more relevant recommendations while still incorporating enough diversity to foster exploration.
+
+![alt text](image-7.png)
+
+Choosing an alpha value above 0.75 is critical, as it strikes a balance between maintaining user engagement with relevant content and offering opportunities to discover new items. This balance enhances the user experience by combining reliability with novelty, encouraging continued interaction with the system.
 
 
 **5. Interface Service: Using Docker as the app interface service.**
