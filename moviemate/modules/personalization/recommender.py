@@ -54,6 +54,7 @@ class Recommender:
 if __name__ == "__main__":
     import sys
     sys.path.append("..")  # Adds higher directory to Python modules path.
+    import pdb; pdb.set_trace()
 
     from moviemate.modules.adaptive.filters.collaborative import CollaborativeFiltering
     from surprise import SVD
