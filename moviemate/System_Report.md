@@ -103,3 +103,7 @@ The ability to deploy Docker in a cloud environment is also a key benefit. Docke
 #### Alternative approaches ####
 
 Other alternatives to docker would be cloud services such as Kubernetes or Podman. In future research, we could assess systems needs and compare deployment complexity, scalability and cost effectiveness of each method to suggest alternative approaches to docker. 
+
+### System Design using the Evidence ###
+
+The evidence above strongly influences the design of the recommendation system by emphasizing the need for adaptability, personalization, and scalability. Temporal partitioning ensures that the model mirrors real-world deployment by training on past data and testing on future data, reducing data leakage and enhancing robustness. Continuous learning addresses the dynamic nature of user preferences, allowing the system to remain relevant by adapting to concept drift over time. Collaborative filtering stands out as the optimal approach for capturing user-item interactions, while balancing relevance and diversity ensures user engagement by combining reliable recommendations with opportunities for exploration. Finally, leveraging Docker for deployment supports a scalable, fast, and portable infrastructure, capable of delivering real-time recommendations efficiently. Together, these considerations drive the development of a resilient, user-centric, and future-proof recommendation system.
