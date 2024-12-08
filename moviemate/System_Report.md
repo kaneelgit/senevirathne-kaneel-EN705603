@@ -60,7 +60,7 @@ The figure below illustrates this concept through the detection of drift in our 
 
 While continuous learning is a powerful approach for maintaining model relevance over time, there are alternative strategies that can be considered depending on the system's needs and constraints. One such alternative could be periodic retraining, where the model is updated at fixed intervals, such as monthly or quarterly, rather than continuously. This approach reduces the complexity and computational cost associated with constant model updates but may result in slower adaptation to sudden changes in user behavior or external factors. This approach could be optimized by doing a more qualitative analysis of the user behavior and identifying frequency of drifts. For example, we could notice a trend where users cange their behavior seasonally. Thus we could use such information to decide when to retrain our models. 
 
-**3. Personalize service: Using collaborative filtering model. ***
+**3. Personalize service: Using collaborative filtering model.**
 
 #### Significance of Model Selection ####
 
