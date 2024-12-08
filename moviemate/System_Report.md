@@ -46,10 +46,15 @@ Temporal partitioning is essential for designing a robust and reliable recommend
 While temporal partitioning is often the best choice for dynamic recommendation systems, other strategies like random splitting and user-level holdout provide alternatives. Random splitting divides the dataset arbitrarily, ensuring a balanced distribution of users and items in both the train and test sets. This approach can be useful for static datasets where temporal patterns are not relevant. However, random splits often result in data leakage, artificially inflating performance metrics while failing to reflect real-world scenarios. Another alternative is user-level holdout, where specific users are excluded entirely from training and reserved for testing. This method evaluates the model's ability to generalize to unseen users, an important aspect of recommendation systems. However, it does not account for temporal trends, making it less suitable for systems where user preferences change over time. To choose the best alternative, models trained using these approaches can be evaluated using metrics like RMSE and MAE, along with testing their stability and adaptability to future data patterns. Ultimately, the choice of strategy should align with the specific goals and dynamics of the system.
 
 
-**2. Adaptive service: Usign a continous learning model.**
+**2. Adaptive service: Using a continous learning model.**
 
-A continual learning model enables the system to adjust to evolving patterns over time, preventing the model from becoming outdated or less accurate due to concept drift. This is especially crucial in contexts where data distributions change over time. For example, in a movie recommendation system, user preferences could shift as they gain more experience, age, and as their location changes. Therefore, it is essential to monitor this drift and retrain the model to ensure it stays aligned with these evolving user behaviors.
+#### significance of continous learning ####
 
+A continual learning model allows the system to adapt to evolving patterns over time, ensuring it remains accurate and relevant in the face of concept drift. This is particularly important in scenarios where data distributions shift, such as in recommendation systems. For instance, in a movie recommendation system, user preferences may change as they accumulate more experience, age, or relocate. Therefore, it is crucial to monitor these shifts and retrain the model regularly to align with the evolving behaviors of users.
+
+The figure below illustrates this concept through the detection of drift in our dataset when temporal splitting was applied. We trained the model using data from one time period, calculated the RMSE values, and then tested the model on future time periods. This process revealed a noticeable shift in the data. This demonstrates why the adoption of continuous learning in our adaptive service is essential, especially since we chose to train the model using temporal partitioning. The observed drift serves as a clear example of how user ratings can change over time, and if we were to rely on a static model, our recommendations would become ineffective and outdated.
+
+![alt text](image-5.png)
 
 
 **3. Personalize service: Using collaborative filtering model. ***
