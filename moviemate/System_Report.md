@@ -107,3 +107,7 @@ Other alternatives to docker would be cloud services such as Kubernetes or Podma
 ### System Design using the Evidence ###
 
 The evidence above strongly influences the design of the recommendation system by emphasizing the need for adaptability, personalization, and scalability. Temporal partitioning ensures that the model mirrors real-world deployment by training on past data and testing on future data, reducing data leakage and enhancing robustness. Continuous learning addresses the dynamic nature of user preferences, allowing the system to remain relevant by adapting to concept drift over time. Collaborative filtering stands out as the optimal approach for capturing user-item interactions, while balancing relevance and diversity ensures user engagement by combining reliable recommendations with opportunities for exploration. Finally, leveraging Docker for deployment supports a scalable, fast, and portable infrastructure, capable of delivering real-time recommendations efficiently. Together, these considerations drive the development of a resilient, user-centric, and future-proof recommendation system.
+
+## References ##
+
+For case study analysis go to the [case study analysis notebook](https://github.com/creating-ai-enabled-systems-fall-2024/senevirathne-kaneel/blob/main/moviemate/notebooks/case_study_analysis.ipynb)
